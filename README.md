@@ -1,14 +1,24 @@
 # Reece Doyle T2A2 -  Wedding Band API
 ## R1 - Identification of the problem you are trying to solve by building this particular app.
-Weddings have always been a significant milestone in most cultures around the world. They're a time to celebrate the love of the couple that has made the commitment to each other in the precesence of their families and loved ones. And what is a celebration without music? Whether it be during the ceremeony, during the cocktail hour, the first dance, or the party that ensues once the rituals are out of the way, every part of a wedding is filled with music. Thus, the orgainsation of the wedding musicians can truely make or break the day.
+Weddings have always been a significant milestone in most cultures around the world. They're a time to celebrate the love of the couple that has made the commitment to each other in the precesence of their families and loved ones, **and what is a celebration without music?**
+
+Whether it be during the ceremeony, during the cocktail hour, the first dance, or the party that ensues once the rituals are out of the way, every part of a wedding is filled with music. Thus, the orgainsation of the wedding musicians can truely make or break the day.
 ***
 
 ## R2 - Why is it a problem that needs solving?
-The Wedding Industry is a highly competative environment where anything short of perfrection is not tolerated. One bad review can sink a wedding vendor. The saying amongst musicians is that "You're only as good as your last gig", and that could not be more true at a wedding. The key to building a lucrative career as a Wedding/Functions musician is prepartion and organisation. 
+The Wedding Industry is a highly competative environment where anything short of perfrection is not tolerated. 
+
+**One bad experience from a client accompanied with a bad review on Google can absolutely sink a wedding vendor, leaving them with the expensive choice to either start from scratch with a rebrand, or get a day job!**
+
+The saying amongst musicians is that **"You're only as good as your last gig"**, and that could not be more true than at a wedding. 
+
+**The key to building a lucrative career as a Wedding/Functions musician is prepartion and organisation.**
 
 The Wedding Band API is designed to give a Band Leader fast asscess to all the information they need to compile in the organisation and execution of a Wedding Booking. It allows the user to store a database of musicians and their instruments, contact details for booking agents, venue details, a place to build a setlist, and an archieve of songs. 
 
-This saves the musician from digging through a crowded email inbox and looking through badly routed foulders on a computer. All the crucial data that you need to plan and execute a wedding gig in one spot!
+This saves the musician from digging through a crowded email inbox and looking through badly routed foulders on a computer. 
+
+**All the crucial data that you need to plan and execute a wedding gig in one spot!**
 ***
 
 ## R3 - Why have you chosen this database system. What are the drawbacks compared to others?
