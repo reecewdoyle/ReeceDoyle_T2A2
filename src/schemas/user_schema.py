@@ -1,6 +1,6 @@
 from init import ma
 
-class UserSchema (ma.Schema):
+class UserSchema(ma.Schema):
     class Meta:
         fields = ("id", "name", "email", "password", "is_admin")
 
