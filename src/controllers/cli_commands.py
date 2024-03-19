@@ -6,6 +6,7 @@ from models.agent import Agent
 from models.venue import Venue
 from models.band import Band
 from models.musician import Musician
+from models.setlist import Setlist
 
 
 db_commands = Blueprint("db", __name__)
@@ -162,6 +163,26 @@ def seed_tables():
         )
     ]
     db.session.add_all(musicians)
+
+    setlists = [
+    Setlist(
+        song_id="1",
+        song_name="Chameleon",
+        song_type="Cocktail Hour",
+        ),
+    Setlist(    
+        song_id="2",
+        song_name="placeholder",
+        song_type="First Dance",
+        ),
+    Setlist(    
+        song_id="3",
+        song_name="placeholder",
+        song_type="Party",
+        ),        
+    ]
+    
+    db.session.add_all(setlists)
 
     db.session.commit()
 
