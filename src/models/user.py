@@ -9,4 +9,4 @@ class User(db.Model):
     password = db.Column(db.String, nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
 
-    gigs = db.relationship("Gigs", back_populates="user", cascade="all, delete")
+    gig = db.relationship("Gig", back_populates="user", cascade="all, delete")
