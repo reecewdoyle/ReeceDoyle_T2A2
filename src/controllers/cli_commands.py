@@ -7,6 +7,7 @@ from models.venue import Venue
 from models.band import Band
 from models.musician import Musician
 from models.setlist import Setlist
+from models.song import Song
 
 
 db_commands = Blueprint("db", __name__)
@@ -183,6 +184,33 @@ def seed_tables():
     ]
     
     db.session.add_all(setlists)
+
+    songs = [
+        Song(
+            id="1",
+            title="Chameleon",
+            artist="Herbie Hancock",
+            key="Bb",
+            tempo="111",
+        ),
+        Song(
+            id="2",
+            title="Tennessee Whisky",
+            artist="Chris Stapleton",
+            key="A",
+            tempo="98",
+        ),
+        Song(
+            id="3",
+            title="Valarie",
+            artist="Mark Ronson",
+            key="Eb",
+            tempo="106",
+        ),
+    ]
+    db.session.add_all(songs)
+
+
 
     db.session.commit()
 
