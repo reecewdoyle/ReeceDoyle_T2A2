@@ -2,6 +2,8 @@ from flask import Blueprint
 from init import db, bcrypt
 from models.user import User
 from models.gig import Gig
+from models.agent import Agent
+
 
 db_commands = Blueprint("db", __name__)
 
@@ -58,6 +60,26 @@ def seed_tables():
     ]
 
     db.session.add_all(gigs)
+
+    agent = [
+        Agent(
+            id="1",
+            title="Miller Gold Talent Agency",
+            name="Ari Gold",
+            email="ari.gold@mga.com",
+            phone="0412345678"
+        ),
+        Agent(
+            id="2",
+            title="Michael Chugg Entertainment",
+            name="Michael Chugg",
+            email="chuggy@mce.com.au",
+            phone="0487654321"
+        )
+    ]
+
+    db.session.add_all(agent)
+    
     db.session.commit()
 
     print("Tables Seeded")
