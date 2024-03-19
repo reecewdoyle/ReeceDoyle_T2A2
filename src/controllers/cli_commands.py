@@ -5,6 +5,7 @@ from models.gig import Gig
 from models.agent import Agent
 from models.venue import Venue
 from models.band import Band
+from models.musician import Musician
 
 
 db_commands = Blueprint("db", __name__)
@@ -125,6 +126,42 @@ def seed_tables():
         )
     ]
     db.session.add_all(band)
+
+    musicians = [
+        Musician(
+            id="1",
+            name="Miles Davis",
+            email="miles@miles.com",
+            phone="0454567889",
+            instrument1="Trumpet",
+            instrument2="Piano",
+            instrument3="Backing Vocals"
+        ),
+        Musician(
+            id="2",
+            name="Grant Green",
+            email="info@grantgreen.net",
+            phone="0455566899",
+            instrument1="Guitar",
+            instrument2="Backing Vocals"
+        ),
+        Musician(
+            id="3",
+            name="Jaco Pastorius",
+            email="j@jaco.com",
+            phone="0444587189",
+            instrument1="Bass",
+            instrument2="Backing Vocals"
+        ),
+                Musician(
+            id="4",
+            name="Buddy Rich",
+            email="buddy@buddyrich.com",
+            phone="0454164869",
+            instrument1="Drums"
+        )
+    ]
+    db.session.add_all(musicians)
 
     db.session.commit()
 
