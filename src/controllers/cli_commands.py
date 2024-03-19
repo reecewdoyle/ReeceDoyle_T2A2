@@ -3,6 +3,7 @@ from init import db, bcrypt
 from models.user import User
 from models.gig import Gig
 from models.agent import Agent
+from models.venue import Venue
 
 
 db_commands = Blueprint("db", __name__)
@@ -79,7 +80,30 @@ def seed_tables():
     ]
 
     db.session.add_all(agent)
-    
+
+    venue = [
+        Venue(
+            id="1",
+            title="VALHALLA RESTAURANT BAR",
+            manager="Trevor Odinson",
+            address="3834 Nelson Bay Road,Bobs Farm, NSW 2316",
+            phone="0454234556"
+        ),
+        Venue(
+            id="2",
+            title="Lovedale Wedding Chapel and Reception",
+            manager="Cyril Lovedale",
+            address="842 Lovedale Road, Allandale, NSW 2320",
+            phone="0412457889"
+        ),
+        Venue(
+            id="3",
+            title="Fort Scratchley Function Centre",
+            manager="Cletus Scratchley",
+            address="1/3 Nobbys Road, Newcastle East, NSW 2300"
+        )
+    ]
+
     db.session.commit()
 
     print("Tables Seeded")
