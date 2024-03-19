@@ -1,6 +1,7 @@
 from flask import Blueprint
 from init import db, bcrypt
 from models.user import User
+from models.gig import Gig
 
 db_commands = Blueprint("db", __name__)
 
@@ -30,6 +31,33 @@ def seed_tables():
     ]
 
     db.session.add_all(users)
+
+    gigs = [
+        Gig(
+            id="1",
+            date="01/04/2024",
+            time="17:00",
+            invoice="1001",
+            venue="1",
+            agent="1",
+            band="1",
+            setlist="1",
+            user=users[0]
+        ),
+        Gig(
+            id="2",
+            date="10/05/2024",
+            time="17:00",
+            invoice="1002",
+            venue="2",
+            agent="1",
+            band="2",
+            setlist="2",
+            user=users[0]
+        ),
+    ]
+
+    db.session.add_all(gigs)
     db.session.commit()
 
     print("Tables Seeded")
