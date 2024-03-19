@@ -4,6 +4,7 @@ from models.user import User
 from models.gig import Gig
 from models.agent import Agent
 from models.venue import Venue
+from models.band import Band
 
 
 db_commands = Blueprint("db", __name__)
@@ -103,6 +104,27 @@ def seed_tables():
             address="1/3 Nobbys Road, Newcastle East, NSW 2300"
         )
     ]
+
+    db.session.add_all(venue)
+
+    band = [
+        Band(
+            id="1",
+            instrument="Drums",
+            musician_id="1"
+        ),
+        Band(
+            id="2",
+            instrument="Bass, Backing Vocals",
+            musician_id="2"
+        ),
+        Band(
+            id="3",
+            instrument="Guitar, Lead Vocals",
+            musician_id="3"
+        )
+    ]
+    db.session.add_all(band)
 
     db.session.commit()
 
