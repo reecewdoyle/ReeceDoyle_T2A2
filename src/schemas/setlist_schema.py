@@ -5,7 +5,7 @@ VALID_SONG_TYPES = ("Ceremony", "Cocktail Hour", "First Dance", "Party")
 
 class SetlistSchema(ma.Schema):
     id = fields.Integer(dump_only=True)
-    song_id = fields.Integer(required=True)
+    title = fields.String(required=True)
     song_type = fields.String(required=True)
 
     @validates_schema

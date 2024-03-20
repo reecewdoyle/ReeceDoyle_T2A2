@@ -24,3 +24,5 @@ class Gig(db.Model):
     user = db.relationship("User", back_populates="gigs")
     # One-to-one relationship with Band
     band = db.relationship("Band", back_populates="gigs")
+    # One-to-many relationship with Setlist
+    setlist = db.relationship("Setlist", back_populates="gigs")
