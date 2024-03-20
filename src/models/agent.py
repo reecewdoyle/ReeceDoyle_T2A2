@@ -8,3 +8,6 @@ class Agent(db.Model):
     name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False)
     phone = db.Column(db.String, nullable=False)
+
+    # Define relationship with Gigs
+    gigs = db.relationship("Gig", back_populates="agent")

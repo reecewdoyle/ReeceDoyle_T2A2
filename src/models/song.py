@@ -6,5 +6,8 @@ class Song(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)
     artist = db.Column(db.String, nullable=False)
+    genre = db.Column(db.String, nullable=False)
     key = db.Column(db.String(6), nullable=False)
     tempo = db.Column(db.Integer, nullable=False)
+
+    setlist = db.relationship('Setlist', backref='song')

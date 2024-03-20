@@ -15,4 +15,5 @@ class Gig(db.Model):
     
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 
+    agent = db.relationship("Agent", back_populates="gig")
     user = db.relationship("User", back_populates="gig")
