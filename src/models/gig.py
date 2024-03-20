@@ -7,13 +7,18 @@ class Gig(db.Model):
     date = db.Column(db.Date) 
     time = db.Column(db.Time)
     invoice = db.Column(db.String(10))
-
+    # Foreign keys
     venue_id = db.Column(db.Integer, db.ForeignKey("venue.id"), nullable=False)
     agent_id = db.Column(db.Integer, db.ForeignKey("agent.id"), nullable=False)
     band_id = db.Column(db.Integer, db.ForeignKey("band.id"), nullable=False)
     setlist_id = db.Column(db.Integer, db.ForeignKey("setlist.id"), nullable=False)
-    
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
-
-    agent = db.relationship("Agent", back_populates="gig")
-    user = db.relationship("User", back_populates="gig")
+    
+    
+    # Relationships
+    # One-to-many relationship with Agent
+    agent = db.relationship("Agent", back_populates="gigs")
+    # One-to-many relationship with Venue
+    venue = db.relationship("Venue", back_populates="gigs")
+    # One-to-many relationship with User
+    user = db.relationship("User", back_populates="gigs")
