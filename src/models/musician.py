@@ -7,6 +7,4 @@ class Musician(db.Model):
     name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, nullable=False)
     phone = db.Column(db.String, nullable=False)
-    instrument_1 = db.Column(db.String, nullable=False)
-    instrument_2 = db.Column(db.String)
-    instrument_3 = db.Column(db.String)
+    instrument = db.Column(db.String, nullable=False)
