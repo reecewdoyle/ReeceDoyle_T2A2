@@ -1,5 +1,7 @@
 from init import db
+from .band_musician import band_musician
 
+# Define the Musician model
 class Musician(db.Model):
     __tablename__ = 'musicians'
 
@@ -8,3 +10,6 @@ class Musician(db.Model):
     email = db.Column(db.String, nullable=False)
     phone = db.Column(db.String, nullable=False)
     instrument = db.Column(db.String, nullable=False)
+
+    # Define the relationship with bands using the association table
+    bands = db.relationship('Band', secondary=band_musician, backref='musicians')

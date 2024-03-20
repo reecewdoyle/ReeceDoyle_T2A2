@@ -5,13 +5,9 @@ class Band(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
 
-    # Define the secondary relationship with musicians
+    # Define the secondary relationship with musicians using the association table
     musicians = db.relationship('Musician', secondary='band_musician', backref='bands')
 
-class BandMusician(db.Model):
-    __tablename__ = 'band_musician'
 
-    band_id = db.Column(db.Integer, db.ForeignKey('bands.id'), primary_key=True)
-    musician_id = db.Column(db.Integer, db.ForeignKey('musicians.id'), primary_key=True)
 
 
