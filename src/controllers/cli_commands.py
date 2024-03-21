@@ -113,17 +113,14 @@ def seed_tables():
     band = [
         Band(
             id="1",
-            instrument="Drums",
             musician_id="1"
         ),
         Band(
             id="2",
-            instrument="Bass, Backing Vocals",
             musician_id="2"
         ),
         Band(
             id="3",
-            instrument="Guitar, Lead Vocals",
             musician_id="3"
         )
     ]
@@ -135,32 +132,29 @@ def seed_tables():
             name="Miles Davis",
             email="miles@miles.com",
             phone="0454567889",
-            instrument1="Trumpet",
-            instrument2="Piano",
-            instrument3="Backing Vocals"
+            instrument="Trumpet",
+
         ),
         Musician(
             id="2",
             name="Grant Green",
             email="info@grantgreen.net",
             phone="0455566899",
-            instrument1="Guitar",
-            instrument2="Backing Vocals"
+            instrument="Guitar",
         ),
         Musician(
             id="3",
             name="Jaco Pastorius",
             email="j@jaco.com",
             phone="0444587189",
-            instrument1="Bass",
-            instrument2="Backing Vocals"
+            instrument="Bass",
         ),
                 Musician(
             id="4",
             name="Buddy Rich",
             email="buddy@buddyrich.com",
             phone="0454164869",
-            instrument1="Drums"
+            instrument="Drums"
         )
     ]
     db.session.add_all(musicians)
