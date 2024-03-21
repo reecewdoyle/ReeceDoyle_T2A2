@@ -10,4 +10,5 @@ class User(db.Model):
     is_admin = db.Column(db.Boolean, default=False)
     is_active = db.Column(db.Boolean, default=True) 
 
-    gig = db.relationship("Gig", back_populates="user")
+    gigs = db.relationship("Gig", back_populates="user")  # Use 'gigs' instead of 'gig'
+
