@@ -4,7 +4,6 @@ from models.user import User
 from models.gig import Gig
 from models.agent import Agent
 from models.venue import Venue
-from models.band import Band
 from models.musician import Musician
 from models.setlist import Setlist
 from models.song import Song
@@ -444,34 +443,6 @@ def seed_tables():
     db.session.commit()
 
     print("Tables Seeded")
-
-
-
-
-    # gigs = [
-    #     Gig(
-    #         date="01/04/2024",
-    #         time="17:00",
-    #         invoice="1001",
-    #         venue="1",
-    #         agent="1",
-    #         band="1",
-    #         setlist="1",
-    #         user=users[0]
-    #     ),
-    #     Gig(
-    #         date="10/05/2024",
-    #         time="17:00",
-    #         invoice="1002",
-    #         venue="2",
-    #         agent="1",
-    #         band="2",
-    #         setlist="2",
-    #         user=users[0]
-    #     ),
-    # ]
-
-    # db.session.add_all(gigs)
 
 
 

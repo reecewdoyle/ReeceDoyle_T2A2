@@ -1,5 +1,4 @@
 from init import db
-from .band_musician import band_musician
 
 class Musician(db.Model):
     __tablename__ = 'musicians'
@@ -10,5 +9,9 @@ class Musician(db.Model):
     phone = db.Column(db.String, nullable=False)
     instrument = db.Column(db.String, nullable=False)
 
-    # Define the relationship with bands using the association table
-    bands = db.relationship('Band', secondary=band_musician, back_populates='musicians')
+    # Define the reverse relationships with Gig
+    gigs_as_musician1 = db.relationship("Gig", foreign_keys="[Gig.musician1_id]")
+    gigs_as_musician2 = db.relationship("Gig", foreign_keys="[Gig.musician2_id]")
+    gigs_as_musician3 = db.relationship("Gig", foreign_keys="[Gig.musician3_id]")
+    gigs_as_musician4 = db.relationship("Gig", foreign_keys="[Gig.musician4_id]")
+    gigs_as_musician5 = db.relationship("Gig", foreign_keys="[Gig.musician5_id]")
