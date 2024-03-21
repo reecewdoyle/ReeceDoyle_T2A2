@@ -26,6 +26,7 @@ def drop_tables():
 def seed_tables():
     users = [
         User(
+            name="Admin",
             email="admin@weddingband.com",
             password=bcrypt.generate_password_hash('123456').decode('utf-8'),
             is_admin=True
@@ -81,35 +82,85 @@ def seed_tables():
 
     musicians = [
         Musician(
-            id="1",
             name="Miles Davis",
             email="miles@miles.com",
             phone="0454567889",
-            instrument="Trumpet",
-
+            instrument="Trumpet"
         ),
         Musician(
-            id="2",
             name="Grant Green",
             email="info@grantgreen.net",
             phone="0455566899",
-            instrument="Guitar",
+            instrument="Guitar"
         ),
         Musician(
-            id="3",
             name="Jaco Pastorius",
             email="j@jaco.com",
             phone="0444587189",
-            instrument="Bass",
+            instrument="Bass"
         ),
-                Musician(
-            id="4",
+        Musician(
             name="Buddy Rich",
             email="buddy@buddyrich.com",
             phone="0454164869",
             instrument="Drums"
+        ),
+        Musician(
+            name="Kenny G",
+            email="kennyg@sax.com",
+            phone="0422333444",
+            instrument="Saxophone"
+        ),
+        Musician(
+            name="Victor Wooten",
+            email="victor@wooten.com",
+            phone="0454567890",
+            instrument="Bass"
+        ),
+        Musician(
+            name="Flea",
+            email="flea@redhotchilipeppers.com",
+            phone="0433221100",
+            instrument="Bass"
+        ),
+        Musician(
+            name="John Mayer",
+            email="john@mayer.com",
+            phone="0412123456",
+            instrument="Guitar"
+        ),
+        Musician(
+            name="Eric Clapton",
+            email="eric@clapton.com",
+            phone="0478654321",
+            instrument="Guitar"
+        ),
+        Musician(
+            name="Stevie Wonder",
+            email="stevie@wonder.com",
+            phone="0400111000",
+            instrument="Keyboard"
+        ),
+        Musician(
+            name="Herbie Hancock",
+            email="herbie@hancock.com",
+            phone="0488777666",
+            instrument="Keyboard"
+        ),
+        Musician(
+            name="Dave Grohl",
+            email="dave@grohl.com",
+            phone="0433123456",
+            instrument="Drums"
+        ),
+        Musician(
+            name="Travis Barker",
+            email="travis@barker.com",
+            phone="0499888777",
+            instrument="Drums"
         )
     ]
+
     db.session.add_all(musicians)
 
     songs = [
@@ -139,6 +190,24 @@ def seed_tables():
         ),
     ]
     db.session.add_all(songs)
+
+    setlists = [
+    Setlist(
+        song_id="1",
+        song_type="Cocktail Hour",
+        ),
+    Setlist(    
+        song_id="2",
+        song_type="First Dance",
+        ),
+    Setlist(    
+        song_id="3",
+        song_type="Party",
+        ),        
+    ]
+    
+    db.session.add_all(setlists)
+
 
     db.session.commit()
 
@@ -191,25 +260,7 @@ def seed_tables():
 
 
 
-    # setlists = [
-    # Setlist(
-    #     song_id="1",
-    #     song_name="Chameleon",
-    #     song_type="Cocktail Hour",
-    #     ),
-    # Setlist(    
-    #     song_id="2",
-    #     song_name="placeholder",
-    #     song_type="First Dance",
-    #     ),
-    # Setlist(    
-    #     song_id="3",
-    #     song_name="placeholder",
-    #     song_type="Party",
-    #     ),        
-    # ]
-    
-    # db.session.add_all(setlists)
+
 
 
 
