@@ -224,30 +224,202 @@ def seed_tables():
     db.session.add_all(musicians)
 
     songs = [
-        Song(
-            id="1",
-            title="Chameleon",
-            artist="Herbie Hancock",
-            genre="Jazz",
-            key="Bb",
-            tempo="111",
-        ),
-        Song(
-            id="2",
-            title="Tennessee Whisky",
-            artist="Chris Stapleton",
-            genre="Country",
-            key="A",
-            tempo="98",
-        ),
-        Song(
-            id="3",
-            title="Valarie",
-            artist="Mark Ronson",
-            genre="Pop",
-            key="Eb",
-            tempo="106",
-        ),
+ Song(
+        title="Chameleon",
+        artist="Herbie Hancock",
+        genre="Jazz",
+        key="Bb",
+        tempo="111"
+    ),
+    Song(
+        title="Tennessee Whisky",
+        artist="Chris Stapleton",
+        genre="Country",
+        key="A",
+        tempo="98"
+    ),
+    Song(
+        title="Valarie",
+        artist="Mark Ronson ft. Amy Winehouse",
+        genre="Pop",
+        key="Eb",
+        tempo="106"
+    ),
+    Song(
+        title="Take Five",
+        artist="Dave Brubeck",
+        genre="Jazz",
+        key="C",
+        tempo="174"
+    ),
+    Song(
+        title="Jolene",
+        artist="Dolly Parton",
+        genre="Country",
+        key="G",
+        tempo="108"
+    ),
+    Song(
+        title="Uptown Funk",
+        artist="Mark Ronson ft. Bruno Mars",
+        genre="Pop",
+        key="Dm",
+        tempo="115"
+    ),
+    Song(
+        title="Summertime",
+        artist="Ella Fitzgerald",
+        genre="Jazz",
+        key="Am",
+        tempo="83"
+    ),
+    Song(
+        title="Wagon Wheel",
+        artist="Old Crow Medicine Show",
+        genre="Country",
+        key="A",
+        tempo="140"
+    ),
+    Song(
+        title="Shallow",
+        artist="Lady Gaga, Bradley Cooper",
+        genre="Pop",
+        key="G",
+        tempo="96"
+    ),
+    Song(
+        title="Feeling Good",
+        artist="Nina Simone",
+        genre="Jazz",
+        key="Cm",
+        tempo="128"
+    ),
+    Song(
+        title="Friends in Low Places",
+        artist="Garth Brooks",
+        genre="Country",
+        key="A",
+        tempo="132"
+    ),
+    Song(
+        title="Shape of My Heart",
+        artist="Sting",
+        genre="Pop",
+        key="F#m",
+        tempo="96"
+    ),
+    Song(
+        title="Fly Me to the Moon",
+        artist="Frank Sinatra",
+        genre="Jazz",
+        key="C",
+        tempo="126"
+    ),
+    Song(
+        title="Ring of Fire",
+        artist="Johnny Cash",
+        genre="Country",
+        key="G",
+        tempo="106"
+    ),
+    Song(
+        title="Someone Like You",
+        artist="Adele",
+        genre="Pop",
+        key="A",
+        tempo="67"
+    ),
+    Song(
+        title="So What",
+        artist="Miles Davis",
+        genre="Jazz",
+        key="D",
+        tempo="104"
+    ),
+    Song(
+        title="The Gambler",
+        artist="Kenny Rogers",
+        genre="Country",
+        key="G",
+        tempo="118"
+    ),
+    Song(
+        title="Don't Stop Believin'",
+        artist="Journey",
+        genre="Pop",
+        key="E",
+        tempo="118"
+    ),
+    Song(
+        title="Autumn Leaves",
+        artist="Nat King Cole",
+        genre="Jazz",
+        key="Gm",
+        tempo="88"
+    ),
+    Song(
+        title="Wanted Dead or Alive",
+        artist="Bon Jovi",
+        genre="Country",
+        key="D",
+        tempo="125"
+    ),
+    Song(
+        title="Billie Jean",
+        artist="Michael Jackson",
+        genre="Pop",
+        key="F#m",
+        tempo="117"
+    ),
+    Song(
+        title="My Favorite Things",
+        artist="John Coltrane",
+        genre="Jazz",
+        key="Em",
+        tempo="100"
+    ),
+    Song(
+        title="I Walk the Line",
+        artist="Johnny Cash",
+        genre="Country",
+        key="G",
+        tempo="105"
+    ),
+    Song(
+        title="Smooth Operator",
+        artist="Sade",
+        genre="Pop",
+        key="Dm",
+        tempo="89"
+    ),
+    Song(
+        title="Take the 'A' Train",
+        artist="Duke Ellington",
+        genre="Jazz",
+        key="C",
+        tempo="190"
+    ),
+    Song(
+        title="Cruise",
+        artist="Florida Georgia Line",
+        genre="Country",
+        key="G",
+        tempo="68"
+    ),
+    Song(
+        title="Can't Help Falling in Love",
+        artist="Elvis Presley",
+        genre="Pop",
+        key="C",
+        tempo="108"
+    ),
+    Song(
+        title="All Blues",
+        artist="Miles Davis",
+        genre="Jazz",
+        key="G",
+        tempo="75"
+    )
     ]
     db.session.add_all(songs)
 
