@@ -3,3 +3,7 @@ venv
 .env
 .flaskenv
 .DS_Store
+
+band.py
+band_schema.py
+band_musician.py
