@@ -158,6 +158,66 @@ def seed_tables():
             email="travis@barker.com",
             phone="0499888777",
             instrument="Drums"
+        ),
+           Musician(
+        name="Frank Sinatra",
+        email="frank@sinatra.com",
+        phone="0454123456",
+        instrument="Vocals"
+        ),
+        Musician(
+            name="Elvis Presley",
+            email="elvis@presley.com",
+            phone="0412789456",
+            instrument="Vocals"
+        ),
+        Musician(
+            name="Michael Jackson",
+            email="michael@jackson.com",
+            phone="0432456789",
+            instrument="Vocals"
+        ),
+        Musician(
+            name="Freddie Mercury",
+            email="freddie@mercury.com",
+            phone="0478563412",
+            instrument="Vocals"
+        ),
+        Musician(
+            name="John Legend",
+            email="john@legend.com",
+            phone="0400111222",
+            instrument="Vocals"
+        ),
+        Musician(
+            name="Adele",
+            email="adele@adele.com",
+            phone="0456000000",
+            instrument="Vocals"
+        ),
+        Musician(
+            name="Beyoncé",
+            email="beyonce@beyonce.com",
+            phone="0411333777",
+            instrument="Vocals"
+        ),
+        Musician(
+            name="Ariana Grande",
+            email="ariana@grande.com",
+            phone="0488889999",
+            instrument="Vocals"
+        ),
+        Musician(
+            name="Taylor Swift",
+            email="taylor@swift.com",
+            phone="0466667777",
+            instrument="Vocals"
+        ),
+        Musician(
+            name="Whitney Houston",
+            email="whitney@houston.com",
+            phone="0412345678",
+            instrument="Vocals"
         )
     ]
 
@@ -242,21 +302,6 @@ def seed_tables():
     # db.session.add_all(gigs)
 
 
-    # band = [
-    #     Band(
-    #         id="1",
-    #         musician_id="1"
-    #     ),
-    #     Band(
-    #         id="2",
-    #         musician_id="2"
-    #     ),
-    #     Band(
-    #         id="3",
-    #         musician_id="3"
-    #     )
-    # ]
-    # db.session.add_all(band)
 
 
 
