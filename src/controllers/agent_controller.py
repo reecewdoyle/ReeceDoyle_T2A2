@@ -24,13 +24,15 @@ def get_one_agent(agent_id):
         return {"error": f"Agent with id {agent_id} not found"}, 404
     
 @agent_bp.route("/", methods=["POST"])
+@jwt_required()
 def create_agent():
     body_data = request.get_json()
     agent = Agent(
         title=body_data.get("title"),
         name=body_data.get("name"),
         email=body_data.get("email"),
-        phone=body_data.get("phone")
+        phone=body_data.get("phone"),
+        user_id = get_jwt_identity()
     )
     db.session.add(agent)
     db.session.commit()
