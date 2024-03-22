@@ -62,3 +62,4 @@ def get_all_users():
     stmt = db.select(User)
     users = db.session.scalars(stmt)
     return users_schema.dump(users)
+
