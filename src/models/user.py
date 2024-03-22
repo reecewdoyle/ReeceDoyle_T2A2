@@ -8,7 +8,9 @@ class User(db.Model):
     email = db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
-    is_active = db.Column(db.Boolean, default=True) 
+    is_active = db.Column(db.Boolean, default=True)
+
+    agent = db.relationship("Agent", back_populates="user")
 
     gigs = db.relationship("Gig", back_populates="user")  
 

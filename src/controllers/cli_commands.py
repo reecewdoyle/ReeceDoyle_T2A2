@@ -66,13 +66,15 @@ def seed_tables():
             title="Miller Gold Talent Agency",
             name="Ari Gold",
             email="ari.gold@mga.com",
-            phone="0412345678"
+            phone="0412345678",
+            user=users[0]
         ),
         Agent(
             title="Michael Chugg Entertainment",
             name="Michael Chugg",
             email="chuggy@mce.com.au",
-            phone="0487654321"
+            phone="0487654321",
+            user=users[0]
         )
     ]
 
