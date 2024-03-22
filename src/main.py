@@ -31,5 +31,8 @@ def create_app():
     from controllers.first_dance_controller import first_dance_bp
     app.register_blueprint(first_dance_bp)
 
+    from controllers.musician_controller import musician_bp
+    app.register_blueprint(musician_bp)
+
     
     return app
