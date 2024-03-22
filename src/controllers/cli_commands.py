@@ -265,6 +265,39 @@ def seed_tables():
 
     db.session.add_all(aisle_songs)
 
+    gigs = [
+        Gig(
+            date="01/04/2024",
+            time="17:00",
+            invoice="1001",
+            venue_id="1",
+            agent_id="1",
+            user_id="1",
+            musician1_id="1",
+            musician2_id="5",
+            musician3_id="7",
+            first_dance_song_id="1",
+            aisle_song_id="1",
+        ),
+        Gig(
+            date="10/10/2024",
+            time="17:30",
+            invoice="1002",
+            venue_id="2",
+            agent_id="2",
+            user_id="1",
+            musician1_id="3",
+            musician2_id="6",
+            musician3_id="8",
+            first_dance_song_id="5",
+            aisle_song_id="2",
+        ),
+
+    ]
+
+
+    db.session.add_all(gigs)
+
     db.session.commit()
 
     print("Tables Seeded")
