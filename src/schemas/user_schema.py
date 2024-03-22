@@ -8,5 +8,5 @@ class UserSchema(ma.Schema):
     class Meta:
         fields = ("id", "name", "email", "password", "is_admin", "gig")
 
-user_schema = UserSchema(exclude=["password"]) # will serialise a single user schema
-users_schema = UserSchema(many=True, exclude=["password"]) # will serialise a list of users schemas
+user_schema = UserSchema(exclude=["password"])
+users_schema = UserSchema(many=True, exclude=["password"])
