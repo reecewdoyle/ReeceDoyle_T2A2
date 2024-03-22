@@ -10,4 +10,7 @@ class FirstDanceSong(db.Model):
     key = db.Column(db.String, nullable=False)
     tempo = db.Column(db.Integer, nullable=False)
 
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+
+    user = db.relationship("User", back_populates="first_dance_song")
     gigs = db.relationship("Gig", back_populates='first_dance_song')

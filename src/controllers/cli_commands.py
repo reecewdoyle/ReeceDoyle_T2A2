@@ -193,35 +193,40 @@ def seed_tables():
             artist="Etta James", 
             genre="Soul", 
             key="F major", 
-            tempo=65
+            tempo=65,
+            user=users[0]
         ),
         FirstDanceSong(
             title="Thinking Out Loud", 
             artist="Ed Sheeran", 
             genre="Pop", 
             key="D major", 
-            tempo=79
+            tempo=79,
+            user=users[0]
         ),
         FirstDanceSong(
             title="Can't Help Falling in Love", 
             artist="Elvis Presley", 
             genre="Rock", 
             key="C major", 
-            tempo=68
+            tempo=68,
+            user=users[0]
         ),
         FirstDanceSong(
             title="Unchained Melody", 
             artist="The Righteous Brothers", 
             genre="Pop", 
             key="E♭ major", 
-            tempo=87
+            tempo=87,
+            user=users[0]
         ),
         FirstDanceSong(
             title="All of Me", 
             artist="John Legend", 
             genre="R&B", 
             key="A♭ major", 
-            tempo=63
+            tempo=63,
+            user=users[0]
         )
     ]
     
