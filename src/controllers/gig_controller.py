@@ -1,4 +1,6 @@
-from flask import Blueprint
+from flask import Blueprint, request
+from flask_jwt_extended import jwt_required, get_jwt_identity
+
 from init import db
 from models.gig import Gig
 from schemas.gig_schema import gigs_schema, gig_schema
@@ -19,3 +21,22 @@ def get_one_gig(gig_id):
         return gig_schema.dump(gig)
     else:
         return {"error": f"Agent with id {gig_id} not found"}, 404
+
+@gig_bp.route("/", methods=["POST"])
+@jwt_required()
+def create_gig():
+    body_data = request.get_json()
+    gig = Gig(
+        date=body_data.get("date"),
+        time=body_data.get("time"),
+        invoice=body_data.get("invoice"),
+        venue_id=body_data.get("venue_id"),
+        agent_id=body_data.get("agent_id"),
+        user_id = get_jwt_identity(),
+        musician_id=body_data.get("musician_id"),
+        first_dance_song_id=body_data.get("first_dance_song_id"),
+        aisle_song_id=body_data.get("aisle_song_id")
+    )
+    db.session.add(gig)
+    db.session.commit()
+    return gig_schema.dump(gig)
