@@ -27,5 +27,9 @@ def create_app():
 
     from controllers.aisle_controller import aisle_bp
     app.register_blueprint(aisle_bp)
+
+    from controllers.first_dance_controller import first_dance_bp
+    app.register_blueprint(first_dance_bp)
+
     
     return app
