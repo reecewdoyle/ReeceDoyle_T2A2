@@ -24,5 +24,8 @@ def create_app():
 
     from controllers.agent_controller import agent_bp
     app.register_blueprint(agent_bp)
+
+    from controllers.aisle_controller import aisle_bp
+    app.register_blueprint(aisle_bp)
     
     return app

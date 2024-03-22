@@ -4,5 +4,5 @@ class FirstDanceSongSchema(ma.Schema):
     class Meta:
         fields = ("id", "title", "artist", "genre", "key", "tempo")
 
-song_schema = FirstDanceSongSchema()
-songs_schema = FirstDanceSongSchema(many=True)
+first_dance_song_schema = FirstDanceSongSchema()
+first_dance_songs_schema = FirstDanceSongSchema(many=True)
