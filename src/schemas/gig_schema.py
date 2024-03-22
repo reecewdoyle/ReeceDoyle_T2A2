@@ -1,9 +1,11 @@
 from init import ma
 from marshmallow import fields
-from agent_schema import AgentSchema  # Importing AgentSchema for nested serialization
-from musician_schema import MusicianSchema  # Importing MusicianSchema for nested serialization
-from venue_schema import VenueSchema  # Importing VenueSchema for nested serialization
-from user_schema import UserSchema  # Importing UserSchema for nested serialization
+from agent_schema import AgentSchema
+from musician_schema import MusicianSchema
+from venue_schema import VenueSchema
+from user_schema import UserSchema
+# from aisle_schema import AisleSongSchema
+# from first_song_schema import FirstSongSchema
 
 class GigSchema(ma.Schema):
     agent = fields.Nested(AgentSchema, only=["name", "phone", "email"])
@@ -14,9 +16,13 @@ class GigSchema(ma.Schema):
     musician4 = fields.Nested(MusicianSchema, only=["name", "instrument"])
     musician5 = fields.Nested(MusicianSchema, only=["name", "instrument"])
     venue = fields.Nested(VenueSchema, only=["title", "address"])
+    # aisle_song = fields.Nested(AisleSongSchema, only=["title", "key", "tempo"])  # Modified aisle_song field
+    # first_dance_song = fields.Nested(FirstSongSchema, only=["title", "key", "tempo"])  # Modified first_dance_song field
 
     class Meta:
+        # fields = ("id", "date", "time", "invoice", "venue", "agent", "setlist", "user", "musician1", "musician2", "musician3", "musician4", "musician5", "aisle_song", "first_dance_song")
         fields = ("id", "date", "time", "invoice", "venue", "agent", "setlist", "user", "musician1", "musician2", "musician3", "musician4", "musician5")
 
 gig_schema = GigSchema()
 gigs_schema = GigSchema(many=True)
+

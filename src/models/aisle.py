@@ -1,7 +1,7 @@
 from init import db
 
-class Song(db.Model):
-    __tablename__ = 'songs'
+class AisleSong(db.Model):
+    __tablename__ = 'aisle_song'
 
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)
@@ -9,5 +9,6 @@ class Song(db.Model):
     genre = db.Column(db.String, nullable=False)
     key = db.Column(db.String(6), nullable=False)
     tempo = db.Column(db.Integer, nullable=False)
+    
+    gigs = db.relationship('Gig', back_populates='aisle_song')
 
-    setlist = db.relationship('Setlist', backref='song')

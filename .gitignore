@@ -7,3 +7,7 @@ venv
 band.py
 band_schema.py
 band_musician.py
+setlist_schema.py
+setlist.py
+song_schema.py
+song.py
