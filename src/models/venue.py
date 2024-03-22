@@ -9,4 +9,7 @@ class Venue(db.Model):
     address = db.Column(db.String, nullable=False)
     phone = db.Column(db.String, nullable=False)
 
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+
+    user = db.relationship("User", back_populates="venue")
     gigs = db.relationship("Gig", back_populates="venue")

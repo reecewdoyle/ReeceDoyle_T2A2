@@ -43,19 +43,22 @@ def seed_tables():
             title="VALHALLA RESTAURANT BAR",
             manager="Trevor Odinson",
             address="3834 Nelson Bay Road,Bobs Farm, NSW 2316",
-            phone="0454234556"
+            phone="0454234556",
+            user=users[0]
         ),
         Venue(
             title="Lovedale Wedding Chapel and Reception",
             manager="Cyril Lovedale",
             address="842 Lovedale Road, Allandale, NSW 2320",
-            phone="0412457889"
+            phone="0412457889",
+            user=users[0]
         ),
         Venue(
             title="Fort Scratchley Function Centre",
             manager="Cletus Scratchley",
             address="1/3 Nobbys Road, Newcastle East, NSW 2300",
-            phone="0415234556"
+            phone="0415234556",
+            user=users[0]
         )
     ]
 

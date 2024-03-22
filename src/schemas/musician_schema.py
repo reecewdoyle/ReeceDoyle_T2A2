@@ -11,4 +11,3 @@ class MusicianSchema(ma.Schema):
 
 musician_schema = MusicianSchema()
 musicians_schema = MusicianSchema(many=True)
-

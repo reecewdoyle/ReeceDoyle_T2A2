@@ -15,4 +15,5 @@ class User(db.Model):
     first_dance_song = db.relationship("FirstDanceSong", back_populates="user")
     gigs = db.relationship("Gig", back_populates="user")
     musicians = db.relationship("Musician", back_populates="user")
+    venue = db.relationship("Venue", back_populates="user")
 
