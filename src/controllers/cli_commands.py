@@ -159,7 +159,7 @@ def seed_tables():
             phone="0488777666",
             instrument="Keyboard"
         ),
-           Musician(
+        Musician(
         name="Frank Sinatra",
         email="frank@sinatra.com",
         phone="0454123456",
@@ -233,35 +233,40 @@ def seed_tables():
             artist="Johann Pachelbel",
             genre="Classical",
             key="D",
-            tempo="62"
+            tempo="62",
+            user=users[0]
         ),
         AisleSong(
             title="A Thousand Years",
             artist="Christina Perri",
             genre="Pop",
             key="Bb",
-            tempo="95"
+            tempo="95",
+            user=users[0]
         ),
         AisleSong(
             title="Marry Me",
             artist="Train",
             genre="Pop",
             key="F",
-            tempo="145"
+            tempo="145",
+            user=users[0]
         ),
         AisleSong(
             title="Can't Help Falling in Love",
             artist="Elvis Presley",
             genre="Pop",
             key="C",
-            tempo="88"
+            tempo="88",
+            user=users[0]
         ),
         AisleSong(
             title="All of Me",
             artist="John Legend",
             genre="Pop",
             key="Ab",
-            tempo="63"
+            tempo="63",
+            user=users[0]
         )
     ]
 

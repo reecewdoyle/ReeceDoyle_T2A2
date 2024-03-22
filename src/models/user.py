@@ -11,6 +11,7 @@ class User(db.Model):
     is_active = db.Column(db.Boolean, default=True)
 
     agent = db.relationship("Agent", back_populates="user")
+    aisle_song = db.relationship("AisleSong", back_populates="user")
 
     gigs = db.relationship("Gig", back_populates="user")  
 

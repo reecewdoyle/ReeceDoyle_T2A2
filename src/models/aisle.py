@@ -10,5 +10,8 @@ class AisleSong(db.Model):
     key = db.Column(db.String(6), nullable=False)
     tempo = db.Column(db.Integer, nullable=False)
     
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    
+    user = db.relationship("User", back_populates="aisle_song")
     gigs = db.relationship('Gig', back_populates='aisle_song')
 
