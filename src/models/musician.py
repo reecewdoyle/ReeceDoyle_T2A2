@@ -9,6 +9,9 @@ class Musician(db.Model):
     phone = db.Column(db.String, nullable=False)
     instrument = db.Column(db.String, nullable=False)
 
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+
+    user = db.relationship("User", back_populates="musicians")
     gigs = db.relationship("Gig", back_populates="musician")
 
 

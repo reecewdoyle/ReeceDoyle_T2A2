@@ -13,6 +13,6 @@ class User(db.Model):
     agent = db.relationship("Agent", back_populates="user")
     aisle_song = db.relationship("AisleSong", back_populates="user")
     first_dance_song = db.relationship("FirstDanceSong", back_populates="user")
-
-    gigs = db.relationship("Gig", back_populates="user")  
+    gigs = db.relationship("Gig", back_populates="user")
+    musicians = db.relationship("Musician", back_populates="user")
 

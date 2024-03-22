@@ -85,103 +85,120 @@ def seed_tables():
             name="Grant Green",
             email="info@grantgreen.net",
             phone="0455566899",
-            instrument="Guitar"
+            instrument="Guitar",
+            user=users[0]
         ),
         Musician(
             name="Wes Montgomery",
             email="info@wes.net",
             phone="0455566888",
-            instrument="Guitar"
+            instrument="Guitar",
+            user=users[0]
         ),
         Musician(
             name="Guthrie Goven",
             email="guthrie@guthriegoeven.com",
             phone="0455566887",
-            instrument="Guitar"
+            instrument="Guitar",
+            user=users[0]
         ),
         Musician(
             name="Jaco Pastorius",
             email="j@jaco.com",
             phone="0444587189",
-            instrument="Bass"
+            instrument="Bass",
+            user=users[0]
         ),
         Musician(
             name="Victor Wooten",
             email="victor@wooten.com",
             phone="0454567890",
-            instrument="Bass"
+            instrument="Bass",
+            user=users[0]
         ),
         Musician(
             name="Flea",
             email="flea@redhotchilipeppers.com",
             phone="0433221100",
-            instrument="Bass"
+            instrument="Bass",
+            user=users[0]
         ),
         Musician(
             name="Buddy Rich",
             email="buddy@buddyrich.com",
             phone="0454164869",
-            instrument="Drums"
+            instrument="Drums",
+            user=users[0]
         ),
         Musician(
             name="Dave Grohl",
             email="dave@grohl.com",
             phone="0433123456",
-            instrument="Drums"
+            instrument="Drums",
+            user=users[0]
         ),
         Musician(
             name="Travis Barker",
             email="travis@barker.com",
             phone="0499888777",
-            instrument="Drums"
+            instrument="Drums",
+            user=users[0]
         ),
         Musician(
             name="Miles Davis",
             email="miles@miles.com",
             phone="0454567889",
-            instrument="Trumpet"
+            instrument="Trumpet",
+            user=users[0]
         ),
         Musician(
             name="Kenny G",
             email="kennyg@sax.com",
             phone="0422333444",
-            instrument="Saxophone"
+            instrument="Saxophone",
+            user=users[0]
         ),
         Musician(
             name="Stevie Wonder",
             email="stevie@wonder.com",
             phone="0400111000",
-            instrument="Keyboard"
+            instrument="Keyboard",
+            user=users[0]
         ),
         Musician(
             name="Herbie Hancock",
             email="herbie@hancock.com",
             phone="0488777666",
-            instrument="Keyboard"
+            instrument="Keyboard",
+            user=users[0]
         ),
         Musician(
-        name="Frank Sinatra",
-        email="frank@sinatra.com",
-        phone="0454123456",
-        instrument="Vocals"
+            name="Frank Sinatra",
+            email="frank@sinatra.com",
+            phone="0454123456",
+            instrument="Vocals",
+            user=users[0]
         ),
         Musician(
             name="John Legend",
             email="john@legend.com",
             phone="0400111222",
-            instrument="Vocals"
+            instrument="Vocals",
+            user=users[0]
         ),
         Musician(
             name="Adele",
             email="adele@adele.com",
             phone="0456000000",
-            instrument="Vocals"
+            instrument="Vocals",
+            user=users[0]
         ),
         Musician(
             name="Beyoncé",
             email="beyonce@beyonce.com",
             phone="0411333777",
-            instrument="Vocals"
+            instrument="Vocals",
+            user=users[0]
         )
     ]
 
