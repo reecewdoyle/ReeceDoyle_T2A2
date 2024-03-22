@@ -34,5 +34,8 @@ def create_app():
     from controllers.musician_controller import musician_bp
     app.register_blueprint(musician_bp)
 
+    from controllers.venue_controller import venue_bp
+    app.register_blueprint(venue_bp)
+
     
     return app
