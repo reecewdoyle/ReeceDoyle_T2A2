@@ -276,18 +276,18 @@ def seed_tables():
             musician_id="1",
             first_dance_song_id="1",
             aisle_song_id="1",
-        ),
-        Gig(
-            date="10/10/2024",
-            time="17:30",
-            invoice="1002",
-            venue_id="2",
-            agent_id="2",
-            user_id="1",
-            musician_id="3",
-            first_dance_song_id="5",
-            aisle_song_id="2",
-        ),
+        )
+        # Gig(
+        #     date="10/10/2024",
+        #     time="17:30",
+        #     invoice="1002",
+        #     venue_id="2",
+        #     agent_id="2",
+        #     user_id="1",
+        #     musician_id="3",
+        #     first_dance_song_id="5",
+        #     aisle_song_id="2",
+        # ),
 
     ]
 

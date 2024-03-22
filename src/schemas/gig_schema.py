@@ -11,18 +11,13 @@ class GigSchema(ma.Schema):
     agent = fields.Nested("AgentSchema", only=["name", "phone", "email"])
     user = fields.Nested("UserSchema", only=["name", "email"])
     musician = fields.Nested("MusicianSchema", only=["name", "instrument"])
-    # musician2 = fields.Nested("MusicianSchema", only=["name", "instrument"])
-    # musician3 = fields.Nested("MusicianSchema", only=["name", "instrument"])
-    # musician4 = fields.Nested("MusicianSchema", only=["name", "instrument"])
-    # musician5 = fields.Nested("MusicianSchema", only=["name", "instrument"])
     venue = fields.Nested("VenueSchema", only=["title", "address"])
-    aisle_song = fields.Nested("AisleSongSchema", only=["title", "key", "tempo"])  # Modified aisle_song field
-    first_dance_song = fields.Nested("FirstDanceSongSchema", only=["title", "key", "tempo"])  # Modified first_dance_song field
+    aisle_song = fields.Nested("AisleSongSchema", only=["title", "key", "tempo"])
+    first_dance_song = fields.Nested("FirstDanceSongSchema", only=["title", "key", "tempo"])
 
     class Meta:
-        # fields = ("id", "date", "time", "invoice", "venue", "agent", "setlist", "user", "musician1", "musician2", "musician3", "musician4", "musician5", "aisle_song", "first_dance_song")
         fields = ("id", "date", "time", "invoice", "venue", "agent", "setlist", "user", "musician", "aisle_song", "first_dance_song")
-        # fields = ("id", "date", "time", "invoice", "venue", "agent", "setlist", "user", "musician1", "musician2", "musician3", "musician4", "musician5")
+        ordered = True
 
 gig_schema = GigSchema()
 gigs_schema = GigSchema(many=True)

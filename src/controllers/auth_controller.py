@@ -7,7 +7,7 @@ from psycopg2 import errorcodes
 
 from models.user import User
 from init import db, bcrypt
-from schemas.user_schema import user_schema
+from schemas.user_schema import user_schema, users_schema
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 
@@ -56,4 +56,9 @@ def auth_login():
     else:
         # retrun error
         return {"error": "Invalid email or password"}, 401
-    pass
+    
+@auth_bp.route("/")
+def get_all_users():
+    stmt = db.select(User)
+    users = db.session.scalars(stmt)
+    return users_schema.dump(users)

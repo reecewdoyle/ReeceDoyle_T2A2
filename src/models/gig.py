@@ -11,10 +11,6 @@ class Gig(db.Model):
     agent_id = db.Column(db.Integer, db.ForeignKey("agent.id"), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     musician_id = db.Column(db.Integer, db.ForeignKey("musicians.id"), nullable=False)
-    # musician2_id = db.Column(db.Integer, db.ForeignKey("musicians.id"), nullable=True)  
-    # musician3_id = db.Column(db.Integer, db.ForeignKey("musicians.id"), nullable=True)
-    # musician4_id = db.Column(db.Integer, db.ForeignKey("musicians.id"), nullable=True)
-    # musician5_id = db.Column(db.Integer, db.ForeignKey("musicians.id"), nullable=True)
     first_dance_song_id = db.Column(db.Integer, db.ForeignKey("first_dance_song.id"), nullable=True)
     aisle_song_id = db.Column(db.Integer, db.ForeignKey("aisle_song.id"), nullable=True)
     
