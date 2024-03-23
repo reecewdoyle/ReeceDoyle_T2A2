@@ -26,7 +26,7 @@ def get_first_dance_song(first_dance_song_id):
 @first_dance_bp.route("/", methods=["POST"])
 @jwt_required()
 def create_first_dance_song():
-    body_data = request.get_json()
+    body_data = first_dance_song_schema.load(request.get_json())
     first_dance_song = FirstDanceSong(
         title=body_data.get("title"),
         artist=body_data.get("artist"),
@@ -52,7 +52,7 @@ def delete_fist_dance_song(first_dance_song_id):
     
 @first_dance_bp.route("/<int:first_dance_song_id>", methods=["PUT", "PATCH"])
 def update_first_dance_song(first_dance_song_id):
-    body_data = request.get_json()
+    body_data = first_dance_song_schema.load(request.get_json(), partial=True)
     stmt = db.select(FirstDanceSong).filter_by(id=first_dance_song_id)
     first_dance_song = db.session.scalar(stmt)
     if first_dance_song:
