@@ -37,3 +37,15 @@ def create_agent():
     db.session.add(agent)
     db.session.commit()
     return agent_schema.dump(agent)
+
+@agent_bp.route("/<int:agent_id>", methods=["DELETE"])
+def delete_agent(agent_id):
+    stmt = db.select(Agent).where(Agent.id == agent_id)
+    agent = db.session.scalar(stmt)
+    if agent:
+        db.session.delete(agent)
+        db.session.commit()
+        return {"message": f"Agent {agent.name} deleted successfully"}
+    else:
+        return {"error": f"Agent with {agent_id} was not found"}, 404
+

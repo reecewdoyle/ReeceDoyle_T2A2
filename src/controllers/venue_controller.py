@@ -1,7 +1,10 @@
-from flask import Blueprint
+from flask import Blueprint, request
+from flask_jwt_extended import jwt_required, get_jwt_identity
+
 from init import db
 from models.venue import Venue
 from schemas.venue_schema import venues_schema, venue_schema
+
 
 venue_bp = Blueprint("venues", __name__, url_prefix="/venues")
 
@@ -19,3 +22,18 @@ def get_one_venue(venue_id):
         return venue_schema.dump(venue)
     else:
         return {"error": f"Agent with id {venue_id} not found"}, 404
+
+@venue_bp.route("/", methods=["POST"])
+@jwt_required()
+def create_venue():
+    body_data = request.get_json()
+    venue = Venue(
+        title=body_data.get("title"),
+        manager=body_data.get("manager"),
+        address=body_data.get("address"),
+        phone=body_data.get("phone"),
+        user_id = get_jwt_identity()
+    )
+    db.session.add(venue)
+    db.session.commit()
+    return venue_schema.dump(venue)

@@ -38,3 +38,14 @@ def create_aisle_song():
     db.session.add(aisle_song)
     db.session.commit()
     return aisle_song_schema.dump(aisle_song)
+
+@aisle_bp.route("/<int:aisle_song_id>", methods=["DELETE"])
+def delete_aisle_song(aisle_song_id):
+    stmt = db.select(AisleSong).where(AisleSong.id == aisle_song_id)
+    aisle_song = db.session.scalar(stmt)
+    if aisle_song:
+        db.session.delete(aisle_song)
+        db.session.commit()
+        return {"message": f"Aisle Song with {aisle_song.title} deleted successfully"}
+    else:
+        return {"message": f"Aisle Song with {aisle_song_id} was not found"}, 404
