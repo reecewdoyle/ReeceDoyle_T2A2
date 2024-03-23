@@ -65,4 +65,4 @@ def update_aisle_song(aisle_song_id):
         db.session.commit()
         return aisle_song_schema.dump(aisle_song)
     else:
-        return {"error": f"Agent with id {aisle_song_id} not found"}, 404
+        return {"error": f"Aisle Song with id {aisle_song_id} not found"}, 404

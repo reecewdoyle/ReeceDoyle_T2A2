@@ -49,3 +49,20 @@ def delete_fist_dance_song(first_dance_song_id):
         return {"message": f"First Dance Song with {first_dance_song.title} deleted successfully"}
     else:
         return {"message": f"First dance song with {first_dance_song_id} was not forund"}, 404
+    
+@first_dance_bp.route("/<int:first_dance_song_id>", methods=["PUT", "PATCH"])
+def update_first_dance_song(first_dance_song_id):
+    body_data = request.get_json()
+    stmt = db.select(FirstDanceSong).filter_by(id=first_dance_song_id)
+    first_dance_song = db.session.scalar(stmt)
+    if first_dance_song:
+        first_dance_song.title = body_data.get("title") or first_dance_song.title
+        first_dance_song.artist = body_data.get("artist") or first_dance_song.artist
+        first_dance_song.genre = body_data.get("genre") or first_dance_song.genre
+        first_dance_song.key = body_data.get("key") or first_dance_song.key
+        first_dance_song.tempo = body_data.get("tempo") or first_dance_song.tempo
+
+        db.session.commit()
+        return first_dance_song_schema.dump(first_dance_song)
+    else:
+        return {"error": f"First Dance Song with id {first_dance_song_id} not found"}, 404
