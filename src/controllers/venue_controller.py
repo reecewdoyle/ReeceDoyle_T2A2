@@ -37,3 +37,14 @@ def create_venue():
     db.session.add(venue)
     db.session.commit()
     return venue_schema.dump(venue)
+
+@venue_bp.route("<int:venue_id>", methods=["DELETE"])
+def delete_venue(venue_id):
+    stmt = db.select(Venue).where(Venue.id == venue_id)
+    venue = db.session.scalar(stmt)
+    if venue:
+        db.session.delete(venue)
+        db.session.commit()
+        return {"message": f"Venue {venue.title} deleted successfully"}
+    else:
+        return {"error": f"Venue {venue_id} was not found"}, 404

@@ -49,3 +49,19 @@ def delete_agent(agent_id):
     else:
         return {"error": f"Agent with {agent_id} was not found"}, 404
 
+
+@agent_bp.route("/<int:agent_id>", methods=["PUT", "PATCH"])
+def update_agent(agent_id):
+    body_data = request.get_json()
+    stmt = db.select(Agent).filter_by(id=agent_id)
+    agent = db.session.scalar(stmt)
+    if agent:
+        agent.title = body_data.get("title") or agent.title
+        agent.name = body_data.get("name") or agent.name
+        agent.email = body_data.get("email") or agent.email
+        agent.phone = body_data.get("phone") or agent.phone
+
+        db.session.commit()
+        return agent_schema.dump(agent)
+    else:
+        return {"error": f"Agent with id {agent_id} not found"}, 404

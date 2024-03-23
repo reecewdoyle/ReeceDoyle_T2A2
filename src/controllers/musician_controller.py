@@ -38,4 +38,13 @@ def create_musician():
     db.session.commit()
     return musician_schema.dump(musician)
 
-
+@musician_bp.route("/<int:musician_id>", methods=["DELETE"])
+def delete_musician(musician_id):
+    stmt = db.select(Musician).where(Musician.id ==musician_id)
+    musician = db.session.scalar(stmt)
+    if musician:
+        db.session.delete(musician)
+        db.session.commit()
+        return {"message": f"Musician {musician.name} deleted successfully"}
+    else:
+        return {"message": f"Musician {musician_id} was not found"}, 404
