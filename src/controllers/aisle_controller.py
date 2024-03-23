@@ -26,7 +26,7 @@ def get_one_aisle_song(aisle_song_id):
 @aisle_bp.route("/", methods=["POST"])
 @jwt_required()
 def create_aisle_song():
-    body_data = request.get_json()
+    body_data = aisle_song_schema.load(request.get_json())
     aisle_song = AisleSong(
         title=body_data.get("title"),
         artist=body_data.get("artist"),
@@ -52,7 +52,7 @@ def delete_aisle_song(aisle_song_id):
     
 @aisle_bp.route("/<int:aisle_song_id>", methods=["PUT", "PATCH"])
 def update_aisle_song(aisle_song_id):
-    body_data = request.get_json()
+    body_data = aisle_song_schema.load(request.get_json(), partial=True)
     stmt = db.select(AisleSong).filter_by(id=aisle_song_id)
     aisle_song = db.session.scalar(stmt)
     if aisle_song:
