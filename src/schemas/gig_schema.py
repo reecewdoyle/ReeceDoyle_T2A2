@@ -10,7 +10,7 @@ class GigSchema(ma.Schema):
     first_dance_song = fields.Nested("FirstDanceSongSchema", only=["title", "key", "tempo"])
 
     class Meta:
-        fields = ("id", "date", "time", "invoice", "venue", "agent", "setlist", "user", "musician", "aisle_song", "first_dance_song")
+        fields = ("id", "date", "time", "invoice", "venue", "agent", "user", "musician", "aisle_song", "first_dance_song")
         ordered = True
 
 gig_schema = GigSchema()

@@ -26,7 +26,7 @@ def get_one_venue(venue_id):
 @venue_bp.route("/", methods=["POST"])
 @jwt_required()
 def create_venue():
-    body_data = request.get_json()
+    body_data = venue_schema.load(request.get_json())
     venue = Venue(
         title=body_data.get("title"),
         manager=body_data.get("manager"),
@@ -51,7 +51,7 @@ def delete_venue(venue_id):
     
 @venue_bp.route("/<int:venue_id>", methods=["PUT", "PATCH"])
 def update_venue(venue_id):
-    body_data = request.get_json()
+    body_data = venue_schema.load(request.get_json(), partial=True)
     stmt = db.select(Venue).filter_by(id=venue_id)
     venue = db.session.scalar(stmt)
     if venue:
