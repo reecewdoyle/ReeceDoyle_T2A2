@@ -26,7 +26,7 @@ def get_one_agent(agent_id):
 @agent_bp.route("/", methods=["POST"])
 @jwt_required()
 def create_agent():
-    body_data = request.get_json()
+    body_data = agent_schema.load(request.get_json())
     agent = Agent(
         title=body_data.get("title"),
         name=body_data.get("name"),
@@ -52,7 +52,7 @@ def delete_agent(agent_id):
 
 @agent_bp.route("/<int:agent_id>", methods=["PUT", "PATCH"])
 def update_agent(agent_id):
-    body_data = request.get_json()
+    body_data = agent_schema.load(request.get_json(), partial=True)
     stmt = db.select(Agent).filter_by(id=agent_id)
     agent = db.session.scalar(stmt)
     if agent:
