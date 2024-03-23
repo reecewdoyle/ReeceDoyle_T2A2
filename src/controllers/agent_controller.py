@@ -1,3 +1,5 @@
+import functools
+
 from flask import Blueprint, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
@@ -8,6 +10,23 @@ from schemas.agent_schema import agents_schema, agent_schema
 
 
 agent_bp = Blueprint("agent", __name__, url_prefix="/agent")
+
+def authorise_as_admin(fn):
+    @functools.wraps(fn)
+    def wrapper(*args, **kwargs):
+        user_id = get_jwt_identity()
+        stmt = db.select(User).filter_by(id=user_id)
+        user = db.session.scalar(stmt)
+        # if the user is an admin
+        if user.is_admin:
+            # we will continue and run the decorated function
+            return fn(*args, **kwargs)
+        # else (if the user is NOT an admin)
+        else:
+            # return an error 
+            return {"error": "Not authorised to delete an agent"}, 403
+    
+    return wrapper
 
 @agent_bp.route("/")
 def get_all_agents():
@@ -26,6 +45,7 @@ def get_one_agent(agent_id):
     
 @agent_bp.route("/", methods=["POST"])
 @jwt_required()
+@authorise_as_admin
 def create_agent():
     body_data = agent_schema.load(request.get_json())
     agent = Agent(
@@ -41,10 +61,11 @@ def create_agent():
 
 @agent_bp.route("/<int:agent_id>", methods=["DELETE"])
 @jwt_required()
+@authorise_as_admin
 def delete_agent(agent_id):
-    is_admin = is_user_admin()
-    if not is_admin:
-        return {"error": "Not authorised to delete an agent"}, 403
+    # is_admin = is_user_admin()
+    # if not is_admin:
+    #     return {"error": "Not authorised to delete an agent"}, 403
     stmt = db.select(Agent).where(Agent.id == agent_id)
     agent = db.session.scalar(stmt)
     if agent:
@@ -74,8 +95,4 @@ def update_agent(agent_id):
     else:
         return {"error": f"Agent with id {agent_id} not found"}, 404
     
-def is_user_admin():
-    user_id = get_jwt_identity()
-    stmt = db.select(User).filter_by(id=user_id)
-    user = db.session.scalar(stmt)
-    return user.is_admin
+
