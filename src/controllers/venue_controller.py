@@ -48,3 +48,19 @@ def delete_venue(venue_id):
         return {"message": f"Venue {venue.title} deleted successfully"}
     else:
         return {"error": f"Venue {venue_id} was not found"}, 404
+    
+@venue_bp.route("/<int:venue_id>", methods=["PUT", "PATCH"])
+def update_venue(venue_id):
+    body_data = request.get_json()
+    stmt = db.select(Venue).filter_by(id=venue_id)
+    venue = db.session.scalar(stmt)
+    if venue:
+        venue.title = body_data.get("title") or venue.title
+        venue.manager = body_data.get("manager") or venue.manager
+        venue.address = body_data.get("address") or venue.address
+        venue.phone = body_data.get("phone") or venue.phone
+
+        db.session.commit()
+        return venue_schema.dump(venue)
+    else:
+        return {"error": f"Venue with id {venue_id} not found"}, 404
