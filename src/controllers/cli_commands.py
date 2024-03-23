@@ -212,7 +212,7 @@ def seed_tables():
             title="At Last", 
             artist="Etta James", 
             genre="Soul", 
-            key="F major", 
+            key="F", 
             tempo=65,
             user=users[0]
         ),
@@ -220,7 +220,7 @@ def seed_tables():
             title="Thinking Out Loud", 
             artist="Ed Sheeran", 
             genre="Pop", 
-            key="D major", 
+            key="D", 
             tempo=79,
             user=users[0]
         ),
@@ -228,7 +228,7 @@ def seed_tables():
             title="Can't Help Falling in Love", 
             artist="Elvis Presley", 
             genre="Rock", 
-            key="C major", 
+            key="C", 
             tempo=68,
             user=users[0]
         ),
@@ -236,7 +236,7 @@ def seed_tables():
             title="Unchained Melody", 
             artist="The Righteous Brothers", 
             genre="Pop", 
-            key="E♭ major", 
+            key="Eb", 
             tempo=87,
             user=users[0]
         ),
@@ -244,7 +244,7 @@ def seed_tables():
             title="All of Me", 
             artist="John Legend", 
             genre="R&B", 
-            key="A♭ major", 
+            key="Ab", 
             tempo=63,
             user=users[0]
         )

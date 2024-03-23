@@ -26,7 +26,7 @@ def get_one_musician(musician_id):
 @musician_bp.route("/", methods=["POST"])
 @jwt_required()
 def create_musician():
-    body_data = request.get_json()
+    body_data = musician_schema.load(request.get_json())
     musician = Musician(
         name=body_data.get("name"),
         instrument=body_data.get("instrument"),
@@ -51,7 +51,7 @@ def delete_musician(musician_id):
     
 @musician_bp.route("/<int:musician_id>", methods=["PUT", "PATCH"])
 def update_musician(musician_id):
-    body_data = request.get_json()
+    body_data = musician_schema.load(request.get_json(), partial=True)
     stmt = db.select(Musician).filter_by(id=musician_id)
     musician = db.session.scalar(stmt)
     if musician:

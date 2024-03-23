@@ -25,7 +25,7 @@ def get_one_gig(gig_id):
 @gig_bp.route("/", methods=["POST"])
 @jwt_required()
 def create_gig():
-    body_data = request.get_json()
+    body_data = gig_schema.load(request.get_json())
     gig = Gig(
         date=body_data.get("date"),
         time=body_data.get("time"),
@@ -54,7 +54,7 @@ def delete_gig(gig_id):
     
 @gig_bp.route("/<int:gig_id>", methods=["PUT", "PATCH"])
 def update_gig(gig_id):
-    body_data = request.get_json()
+    body_data = gig_schema.load(request.get_json(), partial=True)
     stmt = db.select(Gig).filter_by(id=gig_id)
     gig = db.session.scalar(stmt)
     if gig:
