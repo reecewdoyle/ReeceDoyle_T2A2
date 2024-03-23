@@ -63,7 +63,7 @@ def update_aisle_song(aisle_song_id):
     aisle_song = db.session.scalar(stmt)
     if aisle_song:
         if str(aisle_song.user_id) != get_jwt_identity():
-            return {"error": "Only yhe owner can edit the agent data"}, 403
+            return {"error": "Only yhe owner can edit the aisle song data"}, 403
         aisle_song.title = body_data.get("title") or aisle_song.title
         aisle_song.artist = body_data.get("artist") or aisle_song.artist
         aisle_song.genre = body_data.get("genre") or aisle_song.genre

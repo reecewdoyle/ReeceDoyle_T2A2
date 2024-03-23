@@ -62,7 +62,7 @@ def update_first_dance_song(first_dance_song_id):
     first_dance_song = db.session.scalar(stmt)
     if first_dance_song:
         if str(first_dance_song.user_id) != get_jwt_identity():
-            return {"error": "Only yhe owner can edit the first dance song data"}, 403
+            return {"error": "Only the owner can edit the first dance song data"}, 403
         first_dance_song.title = body_data.get("title") or first_dance_song.title
         first_dance_song.artist = body_data.get("artist") or first_dance_song.artist
         first_dance_song.genre = body_data.get("genre") or first_dance_song.genre

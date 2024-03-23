@@ -63,7 +63,7 @@ def update_agent(agent_id):
     agent = db.session.scalar(stmt)
     if agent:
         if str(agent.user_id) != get_jwt_identity():
-            return {"error": "Only yhe owner can edit the agent data"}, 403
+            return {"error": "Only the owner can edit the agent data"}, 403
         agent.title = body_data.get("title") or agent.title
         agent.name = body_data.get("name") or agent.name
         agent.email = body_data.get("email") or agent.email
