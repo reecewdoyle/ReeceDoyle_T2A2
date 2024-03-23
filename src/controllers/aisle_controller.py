@@ -2,7 +2,8 @@ from flask import Blueprint, request
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from init import db
-from models.aisle import AisleSong 
+from models.aisle import AisleSong
+from models.user import User
 from schemas.aisle_schema import aisle_songs_schema, aisle_song_schema
 
 
@@ -40,7 +41,11 @@ def create_aisle_song():
     return aisle_song_schema.dump(aisle_song)
 
 @aisle_bp.route("/<int:aisle_song_id>", methods=["DELETE"])
+@jwt_required()
 def delete_aisle_song(aisle_song_id):
+    is_admin = is_user_admin()
+    if not is_admin:
+        return {"error": "Not authorised to delete an agent"}, 403
     stmt = db.select(AisleSong).where(AisleSong.id == aisle_song_id)
     aisle_song = db.session.scalar(stmt)
     if aisle_song:
@@ -51,11 +56,14 @@ def delete_aisle_song(aisle_song_id):
         return {"message": f"Aisle Song with {aisle_song_id} was not found"}, 404
     
 @aisle_bp.route("/<int:aisle_song_id>", methods=["PUT", "PATCH"])
+@jwt_required()
 def update_aisle_song(aisle_song_id):
     body_data = aisle_song_schema.load(request.get_json(), partial=True)
     stmt = db.select(AisleSong).filter_by(id=aisle_song_id)
     aisle_song = db.session.scalar(stmt)
     if aisle_song:
+        if str(aisle_song.user_id) != get_jwt_identity():
+            return {"error": "Only yhe owner can edit the aisle song data"}, 403
         aisle_song.title = body_data.get("title") or aisle_song.title
         aisle_song.artist = body_data.get("artist") or aisle_song.artist
         aisle_song.genre = body_data.get("genre") or aisle_song.genre
@@ -66,3 +74,9 @@ def update_aisle_song(aisle_song_id):
         return aisle_song_schema.dump(aisle_song)
     else:
         return {"error": f"Aisle Song with id {aisle_song_id} not found"}, 404
+    
+def is_user_admin():
+    user_id = get_jwt_identity()
+    stmt = db.select(User).filter_by(id=user_id)
+    user = db.session.scalar(stmt)
+    return user.is_admin

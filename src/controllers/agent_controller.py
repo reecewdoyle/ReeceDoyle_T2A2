@@ -3,6 +3,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from init import db
 from models.agent import Agent
+from models.user import User
 from schemas.agent_schema import agents_schema, agent_schema
 
 
@@ -39,7 +40,11 @@ def create_agent():
     return agent_schema.dump(agent)
 
 @agent_bp.route("/<int:agent_id>", methods=["DELETE"])
+@jwt_required()
 def delete_agent(agent_id):
+    is_admin = is_user_admin()
+    if not is_admin:
+        return {"error": "Not authorised to delete an agent"}, 403
     stmt = db.select(Agent).where(Agent.id == agent_id)
     agent = db.session.scalar(stmt)
     if agent:
@@ -51,11 +56,14 @@ def delete_agent(agent_id):
 
 
 @agent_bp.route("/<int:agent_id>", methods=["PUT", "PATCH"])
+@jwt_required()
 def update_agent(agent_id):
     body_data = agent_schema.load(request.get_json(), partial=True)
     stmt = db.select(Agent).filter_by(id=agent_id)
     agent = db.session.scalar(stmt)
     if agent:
+        if str(agent.user_id) != get_jwt_identity():
+            return {"error": "Only the owner can edit the agent data"}, 403
         agent.title = body_data.get("title") or agent.title
         agent.name = body_data.get("name") or agent.name
         agent.email = body_data.get("email") or agent.email
@@ -65,3 +73,9 @@ def update_agent(agent_id):
         return agent_schema.dump(agent)
     else:
         return {"error": f"Agent with id {agent_id} not found"}, 404
+    
+def is_user_admin():
+    user_id = get_jwt_identity()
+    stmt = db.select(User).filter_by(id=user_id)
+    user = db.session.scalar(stmt)
+    return user.is_admin

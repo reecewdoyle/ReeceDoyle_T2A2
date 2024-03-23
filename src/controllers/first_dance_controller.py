@@ -3,6 +3,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from init import db
 from models.first_dance import FirstDanceSong
+from models.user import User
 from schemas.first_dance_schema import first_dance_songs_schema, first_dance_song_schema
 
 
@@ -41,6 +42,9 @@ def create_first_dance_song():
 
 @first_dance_bp.route("/<int:first_dance_song_id>", methods=["DELETE"])
 def delete_fist_dance_song(first_dance_song_id):
+    is_admin = is_user_admin()
+    if not is_admin:
+        return {"error": "Not authorised to delete an first dance song"}, 403
     stmt = db.select(FirstDanceSong).where(FirstDanceSong.id == first_dance_song_id)
     first_dance_song = db.session.scalar(stmt)
     if first_dance_song:
@@ -51,11 +55,14 @@ def delete_fist_dance_song(first_dance_song_id):
         return {"message": f"First dance song with {first_dance_song_id} was not forund"}, 404
     
 @first_dance_bp.route("/<int:first_dance_song_id>", methods=["PUT", "PATCH"])
+@jwt_required()
 def update_first_dance_song(first_dance_song_id):
     body_data = first_dance_song_schema.load(request.get_json(), partial=True)
     stmt = db.select(FirstDanceSong).filter_by(id=first_dance_song_id)
     first_dance_song = db.session.scalar(stmt)
     if first_dance_song:
+        if str(first_dance_song.user_id) != get_jwt_identity():
+            return {"error": "Only the owner can edit the first dance song data"}, 403
         first_dance_song.title = body_data.get("title") or first_dance_song.title
         first_dance_song.artist = body_data.get("artist") or first_dance_song.artist
         first_dance_song.genre = body_data.get("genre") or first_dance_song.genre
@@ -66,3 +73,9 @@ def update_first_dance_song(first_dance_song_id):
         return first_dance_song_schema.dump(first_dance_song)
     else:
         return {"error": f"First Dance Song with id {first_dance_song_id} not found"}, 404
+
+def is_user_admin():
+    user_id = get_jwt_identity()
+    stmt = db.select(User).filter_by(id=user_id)
+    user = db.session.scalar(stmt)
+    return user.is_admin
