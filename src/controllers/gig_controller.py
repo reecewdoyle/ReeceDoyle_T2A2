@@ -51,3 +51,25 @@ def delete_gig(gig_id):
         return {"message": f"Gig on {gig.date} deleted successfully"}
     else:
         return {"message": f"Gig with {gig_id} was not found"}, 404
+    
+@gig_bp.route("/<int:gig_id>", methods=["PUT", "PATCH"])
+def update_gig(gig_id):
+    body_data = request.get_json()
+    stmt = db.select(Gig).filter_by(id=gig_id)
+    gig = db.session.scalar(stmt)
+    if gig:
+        gig.date = body_data.get("date") or gig.date
+        gig.time = body_data.get("time") or gig.time
+        gig.invoice = body_data.get("invoice") or gig.invoice
+        gig.venue_id = body_data.get("venue_id") or gig.venue_id
+        gig.agent_id = body_data.get("agent_id") or gig.agent_id
+        gig.user_id = body_data.get("user_id") or gig.user_id
+        gig.musician_id = body_data.get("musician_id") or gig.musician_id
+        gig.first_dance_song_id = body_data.get("first_dance_song_id") or gig.first_dance_song_id
+        gig.aisle_song_id = body_data.get("aisle_song_id") or gig.aisle_song_id
+
+        db.session.commit()
+        return gig_schema.dump(gig)
+    else:
+        return {"error": f"Gig with id {gig_id} not found"}, 404
+
