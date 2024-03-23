@@ -7,11 +7,11 @@ class UserSchema(ma.Schema):
     aisle_song = fields.List(fields.Nested("AisleSongSchema", exclude=["user"]))
     first_dance_song = fields.List(fields.Nested("FirstDanceSongSchema", exclude=["user"]))
     gig = fields.List(fields.Nested("GigSchema", exclude=["user"]))
-    musicians = fields.List(fields.Nested("MusicianSchema", exclude=["user"]))
+    musician = fields.List(fields.Nested("MusicianSchema", exclude=["user"]))
     venue = fields.List(fields.Nested("VenueSchema", exclude=["venue"]))
 
     class Meta:
-        fields = ("id", "name", "email", "password", "is_admin", "gig", "agent", "aisle_song", "first_dance_song", "musicians", "venue")
+        fields = ("id", "name", "email", "password", "is_admin", "gig", "agent", "aisle_song", "first_dance_song", "musician", "venue")
 
 user_schema = UserSchema(exclude=["password"])
 users_schema = UserSchema(many=True, exclude=["password"])

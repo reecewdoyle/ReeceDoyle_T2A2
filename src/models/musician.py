@@ -1,7 +1,7 @@
 from init import db
 
 class Musician(db.Model):
-    __tablename__ = 'musicians'
+    __tablename__ = 'musician'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
@@ -11,7 +11,7 @@ class Musician(db.Model):
 
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
-    user = db.relationship("User", back_populates="musicians")
+    user = db.relationship("User", back_populates="musician")
     gigs = db.relationship("Gig", back_populates="musician")
 
 

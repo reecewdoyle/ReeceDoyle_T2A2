@@ -83,7 +83,7 @@ def seed_tables():
 
     db.session.add_all(agent)
 
-    musicians = [
+    musician = [
         Musician(
             name="Grant Green",
             email="info@grantgreen.net",
@@ -205,7 +205,7 @@ def seed_tables():
         )
     ]
 
-    db.session.add_all(musicians)
+    db.session.add_all(musician)
 
     first_dance_songs = [
         FirstDanceSong(

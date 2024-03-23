@@ -38,3 +38,14 @@ def create_first_dance_song():
     db.session.add(first_dance_song)
     db.session.commit()
     return first_dance_song_schema.dump(first_dance_song)
+
+@first_dance_bp.route("/<int:first_dance_song_id>", methods=["DELETE"])
+def delete_fist_dance_song(first_dance_song_id):
+    stmt = db.select(FirstDanceSong).where(FirstDanceSong.id == first_dance_song_id)
+    first_dance_song = db.session.scalar(stmt)
+    if first_dance_song:
+        db.session.delete(first_dance_song)
+        db.session.commit()
+        return {"message": f"First Dance Song with {first_dance_song.title} deleted successfully"}
+    else:
+        return {"message": f"First dance song with {first_dance_song_id} was not forund"}, 404

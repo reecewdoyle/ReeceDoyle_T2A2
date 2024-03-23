@@ -40,3 +40,14 @@ def create_gig():
     db.session.add(gig)
     db.session.commit()
     return gig_schema.dump(gig)
+
+@gig_bp.route("/<int:gig_id>", methods=["DELETE"])
+def delete_gig(gig_id):
+    stmt = db.select(Gig).where(Gig.id == gig_id)
+    gig = db.session.scalar(stmt)
+    if gig:
+        db.session.delete(gig)
+        db.session.commit()
+        return {"message": f"Gig on {gig.date} deleted successfully"}
+    else:
+        return {"message": f"Gig with {gig_id} was not found"}, 404

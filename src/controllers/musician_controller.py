@@ -6,13 +6,13 @@ from models.musician import Musician
 from schemas.musician_schema import musicians_schema, musician_schema
 
 
-musician_bp = Blueprint("musicians", __name__, url_prefix="/musicians")
+musician_bp = Blueprint("musician", __name__, url_prefix="/musician")
 
 @musician_bp.route("/")
-def get_all_musicians():
+def get_all_musician():
     stmt = db.select(Musician)
-    musicians = db.session.scalars(stmt)
-    return musicians_schema.dump(musicians)
+    musician = db.session.scalars(stmt)
+    return musicians_schema.dump(musician)
 
 @musician_bp.route("/<int:musician_id>")
 def get_one_musician(musician_id):
@@ -37,3 +37,5 @@ def create_musician():
     db.session.add(musician)
     db.session.commit()
     return musician_schema.dump(musician)
+
+
