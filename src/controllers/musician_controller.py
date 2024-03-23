@@ -1,7 +1,10 @@
-from flask import Blueprint
+from flask import Blueprint, request
+from flask_jwt_extended import jwt_required, get_jwt_identity
+
 from init import db
 from models.musician import Musician
 from schemas.musician_schema import musicians_schema, musician_schema
+
 
 musician_bp = Blueprint("musicians", __name__, url_prefix="/musicians")
 
@@ -19,3 +22,18 @@ def get_one_musician(musician_id):
         return musician_schema.dump(musician)
     else:
         return {"error": f"Agent with id {musician_id} not found"}, 404
+    
+@musician_bp.route("/", methods=["POST"])
+@jwt_required()
+def create_musician():
+    body_data = request.get_json()
+    musician = Musician(
+        name=body_data.get("name"),
+        instrument=body_data.get("instrument"),
+        email=body_data.get("email"),
+        phone=body_data.get("phone"),
+        user_id = get_jwt_identity()
+    )
+    db.session.add(musician)
+    db.session.commit()
+    return musician_schema.dump(musician)

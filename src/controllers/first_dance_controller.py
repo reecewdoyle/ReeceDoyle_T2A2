@@ -25,7 +25,7 @@ def get_first_dance_song(first_dance_song_id):
     
 @first_dance_bp.route("/", methods=["POST"])
 @jwt_required()
-def creats_first_dance_song():
+def create_first_dance_song():
     body_data = request.get_json()
     first_dance_song = FirstDanceSong(
         title=body_data.get("title"),
