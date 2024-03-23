@@ -49,3 +49,20 @@ def delete_aisle_song(aisle_song_id):
         return {"message": f"Aisle Song with {aisle_song.title} deleted successfully"}
     else:
         return {"message": f"Aisle Song with {aisle_song_id} was not found"}, 404
+    
+@aisle_bp.route("/<int:aisle_song_id>", methods=["PUT", "PATCH"])
+def update_aisle_song(aisle_song_id):
+    body_data = request.get_json()
+    stmt = db.select(AisleSong).filter_by(id=aisle_song_id)
+    aisle_song = db.session.scalar(stmt)
+    if aisle_song:
+        aisle_song.title = body_data.get("title") or aisle_song.title
+        aisle_song.artist = body_data.get("artist") or aisle_song.artist
+        aisle_song.genre = body_data.get("genre") or aisle_song.genre
+        aisle_song.key = body_data.get("key") or aisle_song.key
+        aisle_song.tempo = body_data.get("tempo") or aisle_song.tempo
+
+        db.session.commit()
+        return aisle_song_schema.dump(aisle_song)
+    else:
+        return {"error": f"Agent with id {aisle_song_id} not found"}, 404
