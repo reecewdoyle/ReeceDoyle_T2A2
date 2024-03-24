@@ -41,6 +41,7 @@ def create_first_dance_song():
     return first_dance_song_schema.dump(first_dance_song)
 
 @first_dance_bp.route("/<int:first_dance_song_id>", methods=["DELETE"])
+@jwt_required()
 def delete_fist_dance_song(first_dance_song_id):
     is_admin = is_user_admin()
     if not is_admin:

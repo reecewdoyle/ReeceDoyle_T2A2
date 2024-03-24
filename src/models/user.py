@@ -8,7 +8,10 @@ class User(db.Model):
     email = db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
-    is_active = db.Column(db.Boolean, default=True)
+    
+    # Was going to use this as a method for making a user inactive without deleteing the user. 
+    # This is becuase if someone left the "organisation", the gig would still likely be going ahead, therefore you would'nt want to lose the booking. 
+    # is_active = db.Column(db.Boolean, default=True)
 
     agent = db.relationship("Agent", back_populates="user")
     aisle_song = db.relationship("AisleSong", back_populates="user")

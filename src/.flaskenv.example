@@ -1,4 +1,4 @@
 FLASK_APP=main
-FLASK_RUN_PORT= # Set the port you'd like the flask server to run on here 
+FLASK_RUN_PORT= # Set the port you'd like the flask server to run on here. I used 8080 for the endpoints.json
 FLASK_ENV=development
 FLASK_DEBUG= # Set to true to debug

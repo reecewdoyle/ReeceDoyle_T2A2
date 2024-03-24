@@ -12,6 +12,6 @@ class UserSchema(ma.Schema):
 
     class Meta:
         fields = ("id", "name", "email", "password", "is_admin", "gig", "agent", "aisle_song", "first_dance_song", "musician", "venue")
-
-user_schema = UserSchema(exclude=["password"])
-users_schema = UserSchema(many=True, exclude=["password"])
+        
+user_schema = UserSchema(exclude=["password", "venue", "agent", "aisle_song", "first_dance_song", "musician"])
+users_schema = UserSchema(many=True, exclude=["password", "venue", "agent", "aisle_song", "first_dance_song", "musician"])
