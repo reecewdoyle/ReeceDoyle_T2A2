@@ -4,18 +4,23 @@
 
 - [Github](https://github.com/reecewdoyle/ReeceDoyle_T2A2)
 - [Trello](https://trello.com/b/FZZtElT5/t2a2-flask-api)
+
 ## How to run the the Wedding API on your local machine. 
 
 
 
 1. Create a new PostgreSQL database (I called mine `wed_db`)
+
 2. Create a user and either grant all persmissions on `web_db`. This also works if you create a superuser. (I called my user `band_ldr`, as the intended user is a Band Leader)
-3. Edit the `.env.example` file so `DATABASE_URI` matches user and database details, and enter a `JWT_SECRET_KEY` (mine was just "secret").
-4. Edit the `flaskend.example` file to 
-5. Create and activate virtual invironment `python3 -m venv venv && source venv/bin/activate`
-6. Install requirements `pip3 install -r requirements.txt`
-7. Create and seed tables `flask db drop && flask db create && flask db seed`
-8. Run flask app `flask run`
+3. Open from `cd ReeceDoyle_T2A2/src` or `cd src` if you're already in the ReeceDoyle_T2A2 folder. `code .`
+4. Edit the `.env.example` file so `DATABASE_URI` matches user and database details, and enter a `JWT_SECRET_KEY` (mine was just "secret").
+5. Edit the `flaskend.example` file to 
+6. Create and activate virtual invironment `python3 -m venv venv && source venv/bin/activate`
+7. Install requirements `pip3 install -r requirements.txt`
+8. Create and seed tables `flask db drop && flask db create && flask db seed`
+9. Run flask app `flask run`
+
+***
 
 
 ## R1 - Identification of the problem you are trying to solve by building this particular app.
