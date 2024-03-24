@@ -3,6 +3,10 @@
 Weddings have always been a significant milestone in most cultures around the world. They're a time to celebrate the love of the couple that has made the commitment to each other in the precesence of their families and loved ones, **and what is a celebration without music?**
 
 Whether it be during the ceremeony, during the cocktail hour, the first dance, or the party that ensues once the rituals are out of the way, every part of a wedding is filled with music. Thus, the orgainsation of the wedding musicians can truely make or break the day.
+
+One of the problems a band leader will encounter is that (with very few exceptions, and at nearly every level of the industry) musicians are freelancers. Permanent, salaried positions are nonexistent. Even if you play in Taylor Swift or Paul McCartney band, at best you could be looking at a contract that lasts as long as a single tour. 
+
+Musicians are several tiny, sole-trader entities that work together. Therefore, there is almost never a centralised organisation or staff to deligate tasks or handle the admin side of a wedding booking. This can create a myriad of issues with double-bookings, missed bookings, and particularly in the wedding industry, the wrong music being played for the event.
 ***
 
 ## R2 - Why is it a problem that needs solving?
