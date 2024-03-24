@@ -1,4 +1,23 @@
 # Reece Doyle T2A2 -  Wedding Band API
+
+## Github
+
+- [Github](https://github.com/reecewdoyle/ReeceDoyle_T2A2)
+- [Trello](https://trello.com/b/FZZtElT5/t2a2-flask-api)
+## How to run the the Wedding API on your local machine. 
+
+
+
+1. Create a new PostgreSQL database (I called mine `wed_db`)
+2. Create a user and either grant all persmissions on `web_db`. This also works if you create a superuser. (I called my user `band_ldr`, as the intended user is a Band Leader)
+3. Edit the `.env.example` file so `DATABASE_URI` matches user and database details, and enter a `JWT_SECRET_KEY` (mine was just "secret").
+4. Edit the `flaskend.example` file to 
+5. Create and activate virtual invironment `python3 -m venv venv && source venv/bin/activate`
+6. Install requirements `pip3 install -r requirements.txt`
+7. Create and seed tables `flask db drop && flask db create && flask db seed`
+8. Run flask app `flask run`
+
+
 ## R1 - Identification of the problem you are trying to solve by building this particular app.
 Weddings have always been a significant milestone in most cultures around the world. They're a time to celebrate the love of the couple that has made the commitment to each other in the precesence of their families and loved ones, **and what is a celebration without music?**
 
@@ -18,7 +37,7 @@ The saying amongst musicians is that **"You're only as good as your last gig"**,
 
 **The key to building a lucrative career as a Wedding/Functions musician is prepartion and organisation.**
 
-The Wedding Band API is designed to give a Band Leader fast asscess to all the information they need to compile in the organisation and execution of a Wedding Booking. It allows the user to store a database of musicians and their instruments, contact details for booking agents, venue details, a place to build a setlist, and an archieve of songs. 
+The Wedding Band API is designed to give a Band Leader fast asscess to all the information they need to compile in the organisation and execution of a Wedding Booking. It allows the user to store a database of musicians and their instruments, contact details for booking agents, venue details, store the invoice number, specifiy the first dance song and aisle song for the wedding.  You can also specify a band leader through the musician field. 
 
 This saves the musician from digging through a crowded email inbox and looking through badly routed foulders on a computer. 
 
@@ -26,18 +45,37 @@ This saves the musician from digging through a crowded email inbox and looking t
 ***
 
 ## R3 - Why have you chosen this database system. What are the drawbacks compared to others?
-Why PSQL?
-Research alternatives
+PostgreSQL is the Relationsal Database Management System used for this project. Apart from the fact that it's the only RDBMS that I've ever used, and the one that we've learned on this term, if think there is a good chance that down the track PortgreSQL might still be my choice for an app like this. 
+
+For starters, it's a free, open source application with a large community of users who have itterated over it for 30 years. This means there is a very wide knowledge base to draw on for troubleshooting. If you come across a problem, it is very likely that someone else has already figured out the solution, or the problem may have been solved with a feature many generations ago. 
+
+It's object related, which means it is able to handle classes, objects and inheritance rather than just strings and integers. This means an increase in functionality for the end user. It can support more complex data types like video, audio and images. 
+
+PostgreSQL also allows a developer to write code in their preferred language (including but not limited to Python, Java, JavaScript, C, C++) to control PostgreSQL, which is significant for efficiency and automation. 
+
+The ability to create seperate user accounts and grant access as is appropriate for individual users helps to protects the integrity of the data and reduces downtime caused by troubleshooting human error.
+
+As great as it is, PostgreSQL still has it's downsides. There is a significant learning curve for beginners. For some, there might be too many options. There is a reliance on a lot of 3rd party libraires, which can be a blessing and a curse. At worst, that means that a lot of individuals are responsible for making sure that their library continues to work with PostgreSQL, rather than having inbuilt features that are kept in close tolerance by a centralised organisiation. There's also no warranty, which could be an issue for some, as it probably lacks a bit of the brand recognition and trust assiciated with a large company.
+
+Another option would've been MongoDB. Being a NoSQL database means that it uses document oriented data modeling, meaning that you're not locked into a schema within a database. It allows for considerably more flexibility and stores data as documents in JSON or BSOn format.
+
+A large part of what we've done in this assignment invloved serialising and deserialising the database to and from JSON via Marshmallow. MongoDB using a JSON like representation for data would cut down on the serialisation and deserialisation we have to do, meaining which could save some time. 
+
+If we were to deploy our app and scale it up, there are many advantages to MongoDB as well. It allowes for Horizontal Scalaing, which means spreading the load of the data across multiple servers, rather than just getting a bigger server. It also allows for sharding, which spreads the data across multiple nodes for imporved performance and security. 
+
+It also allows for Replication that allows for multiple replicas of the same dataset. We might want this to improve the security and performance. Multiple copies of the data that are kept in sync with each other allow minimise downtime when faults occur. It would also allwo for data to be concentrated around geographical locations where it is accessed the most to improve speed. 
+
+ 
 
 ## R4 - Identify and discuss the key functionalities and benefits of an ORM
 
-Research ORM
+Object-Relational Mapping is the method that allows object-oriented programming languages like Python to speak to relational databases without having to learn SQL. This significantly improves productivity as the developers are able to focus on using the language they know, rather than being hampered by having to learn a new one. 
 
+It also means that a company is not tied to a single relational database. If a company were scale up from something like PostgreSQL to MongoDB, as long as the developers had a good handle on how to use SQLAlchemy's CRUD operations, downtime can be minimised. 
 ## R5 - Document all endpoints for your API
 
 I've included an endpoints.json file to make importing my endpoints into insomnia quick and easy.
 
-***
 ## Users
 
 ### `POST /auth/register`
@@ -703,17 +741,185 @@ I've included an endpoints.json file to make importing my endpoints into insomni
 	"message": "Venue Ravalla deleted successfully"
 }
 ```
+## Error Handling and Validations:
+Here are some examples of the error handling code within the main.py file. 
+```python
+    @app.errorhandler(400)
+    def bad_request(err):
+        return {"error": str(err)}, 400
+    
+    @app.errorhandler(404)
+    def not_found(err):
+        return {"error": str(err)}, 404
+
+    @app.errorhandler(ValidationError)
+    def validation_error(error):
+        return {"error": error.messages}, 400
+```
+This will catch most 400 level errors and return the appropriate error message. 
+
+```python
+def authorise_as_admin(fn):
+    @functools.wraps(fn)
+    def wrapper(*args, **kwargs):
+        user_id = get_jwt_identity()
+        stmt = db.select(User).filter_by(id=user_id)
+        user = db.session.scalar(stmt)
+        # if the user is an admin
+        if user.is_admin:
+            # we will continue and run the decorated function
+            return fn(*args, **kwargs)
+        # else (if the user is NOT an admin)
+        else:
+            # return an error 
+            return {"error": "Not authorised to delete an agent"}, 403
+```
+This decorated function will determine if the user is an admin or not. 
+
+It simply requires adding the decorator within a function:
+```python
+@authorise_as_admin
+```
+An alternative function that I've used in most of the controllers is this:
+
+```python
+def is_user_admin():
+    user_id = get_jwt_identity()
+    stmt = db.select(User).filter_by(id=user_id)
+    user = db.session.scalar(stmt)
+    return user.is_admin
+```
+This works in conjunction with this decorator:
+```python
+@jwt_required
+```
+These lines of code get the `jwt_identity` of the user to determine the owner of the data created. This way, only the owner can update the data. 
+```python
+    if venue:
+        if str(venue.user_id) != get_jwt_identity():
+            return {"error": "Only the owner can edit the venue data"}, 403
+```
+Both of the last two functions do the same thing, and I could use one or the other. I'd already made the later function I mentioned before I learned how to make the `@authorise_as_admin` decorator, so I left it in there the focus on other tasks. 
+
+As for some validations, i used `Length`, `And`, and `Regexp` from `Marshmallow`. Here's an example of how I implemented it within the `AgentSchema`.
+```python
+    title = fields.String(required= True, validate=And(
+        Length(min=2, error="Title must be at least 2 characters long"),
+        Regexp('^[a-zA-Z0-9 ]+$', error="Title can only have alphanumeric characters")
+    ))
+    name = fields.String(required= True, validate=And(
+        Length(min=2, error="Name must be at least 2 characters long"),
+        Regexp('^[a-zA-Z0-9 ]+$', error="Name can only have alphanumeric characters")
+    ))
+
+    email = fields.String(required= True, validate=And(
+        Length(min=2, error="Title must be at least 2 characters long"),
+        Regexp('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$', error="Must enter a valid email address")
+    ))
+
+    phone = fields.String(required= True, validate=And(
+        Length(min=10, error="Phone number must be at least 10 numbers long"),
+        Regexp('^(?:\+?(61))? ?(?:\((?=.*\)))?(0?[2-57-8])\)? ?(\d\d(?:[- ](?=\d{3})|(?!\d\d[- ]?\d[- ]))\d\d[- ]?\d[- ]?\d{3})$', error="Must enter a valid phone number")
+    ))
+
+```
+I also used some validations where there was only a limited number of acceptable answers. One example is in `genre` on the `aisle_song` and `first_dance_song` tables:
+
+```python
+VALID_GENRES = ("Rock", "Pop", "Folk", "Country", "Jazz", "Funk", "R&B", "Hip Hop", "Rap", "Metal", "Hard Rock", "Classical")
+
+    genre = fields.String(validate=OneOf(VALID_GENRES))
+```
+This used the `OneOf` function to specify that the answer had to be one of the above approved genres of music that would be required to play at a wedding.
+
+*Polka omitted for brevity....(and sanity).*
+
+
+I had some considerable self imposed setbacks within my design and spending too much time trying to make them work (as you will see in the iterations of my ERD) which unfrotunately cost me, as I didn't allow myself enough time to get the assisstance I should have gotten much earlier in this 'sprint'. 
+
+In the User and Gig schemas I would have validated exactly what was required for a user name (a minimum number of characters, and a regexp to make it alphanumeric only), I would implement the regexp for the email address that I used, and I would have better handled the issue I came across with using foreign keys as input data. Integer inputs could've been limited to an exceptable range,and unfortunately I also had an issue getting the Gig endpoints to serialise with the nested fields like I wanted to. It still works, but it's not pretty.  
 ## R6 - An ERD for your app
-ERD
+This is the ERD I settled on....eventually....oh how I wish this is where I started....
+![ERD](docs/finalerd.png)
+My first approved design has some issues:
+![ERD](docs/erdA.png)
+There needed to be join tables bewteen songs and setlist tables, but also the musicians and gig table and neither are indicated on my ERD. 
+
+My intial intention was to have a database of musicians that could be added to the gig table. Unfortunately I relaised that I'd actually only allowed for a single field. My understanding is that this would populate with only a single musician. That wasn't going to work, as I wanted it to be able to specify which combination of musicians would be performing. It's not uncommon for musicians to either have multiple bands that they work within. Some have no band at all and just "float" between gigs. To get around this I moved to a different itteration of my ERD
+
+![ERD](docs/erdB.png)
+The introduction of the band table was intended to work as a place to create a band for the gig, and specify who was going to play what in the band, as many musicians are multi-instrumentalists. This was a many-to-many relationship that required a join table. I naively though I this was easy, but how wrong I was... I learned the hard way about why these are hard to use. I spent FAR too much time stubournly trying to make this work, and I didn't ask enough questions. I was letting my pride drive me at this point, and I though I could figure it out myself with online resources when I should really have just spent more time in the design phase and started with something much smaller and built outwards. 
+
+To get around this, I attempted to have all the musicians specified in the gig table. I figured this would eliminate the need for the join table, but it caused issues with serilaising multiple foreign keys. I also had the issue of being able to put multiple instances of the same musician into a single gig, which is obviously not ideal:
+
+![ERD](docs/erD.png)
+
+I then realised far too late that I had made the same mistake with the setlist and songs list. I had originally intended to have a table for each of the functions music plays in a wedding; Cocktail Hour, First Dance and Party Hour.
+
+![ERD](docs/erdC.png)
+
+I though this problem was solved by having the function turned into an attribute on the setlist table. This also didn't work as we're still talking a many-to-many relationship requiring a join table, which I AGAIN (I guess I'm a slow learner) spent far too long trying to make work. 
+
+To design my way out of this, I boiled the songs required down to the most important songs of the evening: The First Dance, and the music played as one of the parties walks down the Aisle. Thus, I replaced the songs and setlists tables with the First Dance Song and Aisle Songs tables in the final app. 
+
+The work around that I came up with far too late was that I could've sorted the musicians into tables depending on their instruments: Drums, Guitar, Vocals, Bass, Keys, etc. This would've allowed me to have multiple musicians on the table at once. Each gig generally only has one of each instrument. To make use of the musician table that I'd already created, I had a musician in the gig table, who would function more as bandleader. At the abolute least, defining the person in charge eliminates some squables and deligates responsibiliity. 
+
+In retrospect, the songlist element of the app is probably enough to be it's own app. I think if I had my time again, I would just make the app a "setlist builder" and I would incorporate the Spotify API. Lesson learned......
+
 
 ## R7 - Detail any third party services that your app will use
 Modules used. SQLALchemy etc.
 
+I used multiple third party services with Python to create this application.
+
+Multiple third party services will be used in the application.
+| Service         | Description |
+| --------------- | ----------- |
+| Flask           | A microserver which allows the user to create web applications within Python. It contains tools for handling web requests and routing. It also works with other libraries within the app. |
+| PostgreSQL      | The relational database management system. Open source and ACID compliant. Perfect for small applications like this. |
+| SQLAlchemy      | Object-Relational Mapping (ORM) toolkit which allows Python objects to work as SQL queries |
+| Marshmallow     | Enabling easy serialisation and deserialisation of complex data types|
+| Bcrypt          | A password-hashing function |
+| JSON Web Tokens | Used for user authentication and authorisation |
+| Psycopg2        | Allows Python applications to connect to and interact with PostgreSQL |
+| dotenv          | Loads environment variables from a .env file making it easier to configure settings and hide JWT secret key|
+
 ## R8 - Describe your projects models in terms of the relationships they have with each other
-Relationships between tables
+Each of the tables have a One to Many relationship with the Gig Table. 
+A gig can have only one Agent, Aisle Song, First Dance Song, Musician (band leader), User who created the gig entry, and venue. However, each of these relationships can happen across many gigs......*or at least they should if your band is good at what they do!*
+![Final ERD](docs/finalerd.png)
+
+The relationships are specified in the models, which generall look like this:
+```python
+class Agent(db.Model):
+    __tablename__ = 'agent'
+
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, nullable=False)
+    phone = db.Column(db.String, nullable=False)
+
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+
+    user = db.relationship("User", back_populates="agent")
+    gigs = db.relationship("Gig", back_populates="agent")
+```
 
 ## R9 - Discuss the database relations to be implemented in your application
-How the relationships will work?
+This is a Flask Application, which uses PostgreSQL as it's as it's relational database. It is written in Python, and utilises the SQLAlchemy ORM to allow the user to write queries in Python rather than using Strucured Query Language (SQL). It's essentiall in a "hub and spokes" shape where everything flows back to the gig table. The app is accessed by using dotenv and psycopg2 to specify the `DATABASE_URI=` and `JWT_SECRET_KEY=`. and also the `.flaskenv`, which I used to specify that the app was in `main.py`, I wanted debugging on, and I wanted to be on Port 8080, as I'm a music obsessed Mac user, and Mac uses Port 5000 for AirPlay. I'm constantly streaming from my laptop as I code, so this eliminated that problem. 
+```python
+FLASK_APP=main
+FLASK_DEBUG=1
+FLASK_RUN_PORT=8080
+```
+I've also used Insomnia to view my CRUD requests and have exported the endpoints to an endpoints.json file for easy loading. 
 
 ## R10 - Describe the way tasks are allocated and tracked in your project
-Trello
+
+To track my progress I used both Trello and a checklist in Notion.
+![Trello](docs/trello.png)
+
+*In retrospect, I should've spent much more time in the "brainstorm" phase!*
+
+![Notion](docs/notion.png)
