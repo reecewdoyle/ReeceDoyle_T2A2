@@ -26,10 +26,12 @@ This saves the musician from digging through a crowded email inbox and looking t
 ***
 
 ## R3 - Why have you chosen this database system. What are the drawbacks compared to others?
-
+Why PSQL?
+Research alternatives
 
 ## R4 - Identify and discuss the key functionalities and benefits of an ORM
 
+Research ORM
 
 ## R5 - Document all endpoints for your API
 
@@ -229,7 +231,7 @@ I've included an endpoints.json file to make importing my endpoints into insomni
 }
 ```
 ***
-### `PATCH /aisle/<int:agent_id>`
+### `PATCH /aisle/<int:aisle_song_id>`
  - Updates an existing aisle song in psql. 
 - JWT required
 - Request: 
@@ -254,7 +256,7 @@ I've included an endpoints.json file to make importing my endpoints into insomni
 }
 ```
 ***
-### `DELETE /aisle/<int:agent_id>`
+### `DELETE /aisle/<int:aisle_song_id>`
  - Deletes an existing aisle song from psql. 
 - JWT required
 - Response: 
@@ -325,7 +327,7 @@ I've included an endpoints.json file to make importing my endpoints into insomni
 }
 ```
 ***
-### `PATCH /firstdance/<int:agent_id>`
+### `PATCH /firstdance/<int:first_dance_song_id>`
  - Updates an existing first dance song in psql. 
 - JWT required
 - Request: 
@@ -350,7 +352,7 @@ I've included an endpoints.json file to make importing my endpoints into insomni
 }
 ```
 ***
-### `DELETE /firstdance/<int:agent_id>`
+### `DELETE /firstdance/<int:first_dance_song_id>`
  - Deletes an existing first dance song from psql. 
 - JWT required
 - Response: 
@@ -359,17 +361,359 @@ I've included an endpoints.json file to make importing my endpoints into insomni
 	"message": "First Dance Song with Perfect deleted successfully"
 }
 ```
-## R6 - An ERD for your app
+****************************************************************
+## Gigs
+### `GET /gigs`
+ - Gets the list of gigs currently stored in psql. 
 
+- Response (shortened for brevity): 
+```json
+	{
+		"id": 1,
+		"date": "2024-01-04",
+		"time": "17:00:00",
+		"invoice": "1001",
+		"venue": {
+			"title": "VALHALLA RESTAURANT BAR",
+			"address": "3834 Nelson Bay Road,Bobs Farm, NSW 2316"
+		},
+		"agent": {
+			"name": "Ari Gold",
+			"phone": "0412345678",
+			"email": "ari.gold@mga.com"
+		},
+		"user": {
+			"email": "admin@weddingband.com",
+			"name": "Admin"
+		},
+		"musician": {
+			"name": "Grant Green",
+			"instrument": "Guitar"
+		},
+		"aisle_song": {
+			"title": "Pachelbel's Canon",
+			"key": "D",
+			"tempo": 62
+		},
+		"first_dance_song": {
+			"title": "At Last",
+			"key": "F",
+			"tempo": 65
+		}
+	},
+```
+### `POST /gigs`
+ - Posts a new gig to psql. 
+- JWT required
+- Request: 
+```json
+{
+	"date": "03/04/2024",
+	"time": "16:30:00",
+	"invoice": "1005",
+	"venue_id": "1",
+	"agent_id": "2",
+	"musician_id": "3",
+	"aisle_song_id": "4",
+	"first_dance_song_id": "3" 
+}
+```
+- Response:
+```json
+{
+	"id": 3,
+	"date": "2024-03-04",
+	"time": "16:30:00",
+	"invoice": "1005",
+	"venue_id": 1,
+	"agent_id": 2,
+	"user_id": 1,
+	"musician_id": 3,
+	"aisle_song_id": 4,
+	"first_dance_song_id": 3
+}
+```
+***
+### `PATCH /gig/<int:gig_id>`
+ - Updates an existing gig in psql. 
+- JWT required
+- Request: 
+```json
+{
+	"date": "10/10/2024",
+	"time": "15:30:00"
+}
+```
+- Response: 
+```json
+{
+	"id": 1,
+	"date": "2024-10-10",
+	"time": "15:30:00",
+	"invoice": "1001",
+	"venue": {
+		"title": "VALHALLA RESTAURANT BAR",
+		"address": "3834 Nelson Bay Road,Bobs Farm, NSW 2316"
+	},
+	"agent": {
+		"name": "Ari Gold",
+		"phone": "0412345678",
+		"email": "ari.gold@mga.com"
+	},
+	"user": {
+		"name": "Admin",
+		"email": "admin@weddingband.com"
+	},
+	"musician": {
+		"name": "Grant Green",
+		"instrument": "Guitar"
+	},
+	"aisle_song": {
+		"title": "Pachelbel's Canon",
+		"key": "D",
+		"tempo": 62
+	},
+	"first_dance_song": {
+		"title": "At Last",
+		"key": "F",
+		"tempo": 65
+	}
+}
+```
+***
+### `DELETE /gig/<int:gig_id>`
+ - Deletes an existing gig from psql. 
+- JWT required
+- Response: 
+```json
+{
+	"message": "Gig on 2024-10-10 deleted successfully"
+}
+```
+****************************************************************
+## Musicians
+### `GET /musician`
+ - Gets the list of musicians currently stored in psql. 
+
+- Response (shortened for brevity): 
+```json
+	{
+		"id": 1,
+		"name": "Grant Green",
+		"instrument": "Guitar",
+		"email": "info@grantgreen.net",
+		"phone": "0455566899",
+		"user": {
+			"name": "Admin",
+			"email": "admin@weddingband.com"
+		}
+	},
+	{
+		"id": 2,
+		"name": "Wes Montgomery",
+		"instrument": "Guitar",
+		"email": "info@wes.net",
+		"phone": "0455566888",
+		"user": {
+			"name": "Admin",
+			"email": "admin@weddingband.com"
+		}
+	},
+	{
+		"id": 3,
+		"name": "Guthrie Goven",
+		"instrument": "Guitar",
+		"email": "guthrie@guthriegoeven.com",
+		"phone": "0455566887",
+		"user": {
+			"name": "Admin",
+			"email": "admin@weddingband.com"
+		}
+	},
+	{
+		"id": 4,
+		"name": "Jaco Pastorius",
+		"instrument": "Bass",
+		"email": "j@jaco.com",
+		"phone": "0444587189",
+		"user": {
+			"name": "Admin",
+			"email": "admin@weddingband.com"
+		}
+	},
+```
+### `POST /musician`
+ - Posts a new musician to psql. 
+- JWT required
+- Request: 
+```json
+{
+	"name": "Mark Knopfler",
+	"email": "mark@moneyfornothing.com",
+	"phone": "0401234567",
+	"instrument": "Guitar"
+}
+```
+- Response:
+```json
+{
+	"id": 18,
+	"name": "Mark Knopfler",
+	"instrument": "Guitar",
+	"email": "mark@moneyfornothing.com",
+	"phone": "0401234567",
+	"user": {
+		"email": "admin@weddingband.com",
+		"name": "Admin"
+	}
+}
+```
+***
+### `PATCH /musician/<int:musician_id>`
+ - Updates an existing musician in psql. 
+- JWT required
+- Request: 
+```json
+{
+	"email": "mark@direstraights.com"
+}
+```
+- Response: 
+```json
+{
+	"id": 18,
+	"name": "Mark Knopfler",
+	"instrument": "Guitar",
+	"email": "mark@direstraights.com",
+	"phone": "0401234567",
+	"user": {
+		"email": "admin@weddingband.com",
+		"name": "Admin"
+	}
+}
+```
+***
+### `DELETE /musician/<int:musician_id>`
+ - Deletes an existing musician from psql. 
+- JWT required
+- Response: 
+```json
+{
+	"message": "Musician Mark Knopfler deleted successfully"
+}
+```
+****************************************************************
+## Venues
+### `GET /venues`
+ - Gets the list of venues currently stored in psql. 
+
+- Response (shortened for brevity): 
+```json
+	{
+		"id": 1,
+		"title": "VALHALLA RESTAURANT BAR",
+		"manager": "Trevor Odinson",
+		"address": "3834 Nelson Bay Road,Bobs Farm, NSW 2316",
+		"phone": "0454234556",
+		"user": {
+			"email": "admin@weddingband.com",
+			"name": "Admin"
+		}
+	},
+	{
+		"id": 2,
+		"title": "Lovedale Wedding Chapel and Reception",
+		"manager": "Cyril Lovedale",
+		"address": "842 Lovedale Road, Allandale, NSW 2320",
+		"phone": "0412457889",
+		"user": {
+			"email": "admin@weddingband.com",
+			"name": "Admin"
+		}
+	},
+	{
+		"id": 3,
+		"title": "Fort Scratchley Function Centre",
+		"manager": "Cletus Scratchley",
+		"address": "1/3 Nobbys Road, Newcastle East, NSW 2300",
+		"phone": "0415234556",
+		"user": {
+			"email": "admin@weddingband.com",
+			"name": "Admin"
+		}
+	}
+```
+### `POST /venues`
+ - Posts a new venue to psql. 
+- JWT required
+- Request: 
+```json
+{
+	"title": "Ravalla",
+	"manager": "Jerome O'Connor",
+	"address": "48 Watt St, Newcastle NSW 2300",
+	"phone": "0415121316"
+}
+```
+- Response:
+```json
+{
+	"id": 4,
+	"title": "Ravalla",
+	"manager": "Jerome Connors",
+	"address": "48 Watt St, Newcastle NSW 2300",
+	"phone": "0415121316",
+	"user": {
+		"name": "Admin",
+		"email": "admin@weddingband.com"
+	}
+}
+```
+***
+### `PATCH /venues/<int:venue_id>`
+ - Updates an existing venue in psql. 
+- JWT required
+- Request: 
+```json
+{
+	"phone": "0404050607"
+}
+```
+- Response: 
+```json
+{
+	"id": 4,
+	"title": "Ravalla",
+	"manager": "Jerome Connors",
+	"address": "48 Watt St, Newcastle NSW 2300",
+	"phone": "0404050607",
+	"user": {
+		"email": "admin@weddingband.com",
+		"name": "Admin"
+	}
+}
+```
+***
+### `DELETE /venues/<int:venue_id>`
+ - Deletes an existing venue from psql. 
+- JWT required
+- Response: 
+```json
+{
+	"message": "Venue Ravalla deleted successfully"
+}
+```
+## R6 - An ERD for your app
+ERD
 
 ## R7 - Detail any third party services that your app will use
-
+Modules used. SQLALchemy etc.
 
 ## R8 - Describe your projects models in terms of the relationships they have with each other
-
+Relationships between tables
 
 ## R9 - Discuss the database relations to be implemented in your application
-
+How the relationships will work?
 
 ## R10 - Describe the way tasks are allocated and tracked in your project
-
+Trello
