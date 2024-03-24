@@ -5,6 +5,7 @@ from marshmallow.exceptions import ValidationError
 
 from init import db, ma, bcrypt, jwt 
 
+# The Flask Application
 def create_app():
     app = Flask(__name__)
 
@@ -19,6 +20,9 @@ def create_app():
     ma.init_app(app)
     bcrypt.init_app(app)
     jwt.init_app(app)
+    
+    
+    # Error handling
 
     @app.errorhandler(400)
     def bad_request(err):
@@ -32,6 +36,9 @@ def create_app():
     def validation_error(error):
         return {"error": error.messages}, 400
 
+
+    # This is where the Blueptints are registered
+    
     from controllers.cli_commands import db_commands
     app.register_blueprint(db_commands)
 

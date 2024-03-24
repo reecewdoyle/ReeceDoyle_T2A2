@@ -5,6 +5,7 @@ from init import ma
 
 class AgentSchema(ma.Schema):
 
+
     title = fields.String(required= True, validate=And(
         Length(min=2, error="Title must be at least 2 characters long"),
         Regexp('^[a-zA-Z0-9 ]+$', error="Title can only have alphanumeric characters")

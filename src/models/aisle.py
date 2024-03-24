@@ -12,6 +12,7 @@ class AisleSong(db.Model):
     
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     
+    # Relationships
     user = db.relationship("User", back_populates="aisle_song")
     gigs = db.relationship('Gig', back_populates='aisle_song')
 

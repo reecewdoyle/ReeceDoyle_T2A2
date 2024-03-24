@@ -13,6 +13,7 @@ class User(db.Model):
     # This is becuase if someone left the "organisation", the gig would still likely be going ahead, therefore you would'nt want to lose the booking. 
     # is_active = db.Column(db.Boolean, default=True)
 
+    # Relationships
     agent = db.relationship("Agent", back_populates="user")
     aisle_song = db.relationship("AisleSong", back_populates="user")
     first_dance_song = db.relationship("FirstDanceSong", back_populates="user")

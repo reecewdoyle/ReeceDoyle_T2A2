@@ -9,7 +9,7 @@ from schemas.aisle_schema import aisle_songs_schema, aisle_song_schema
 
 aisle_bp = Blueprint("aisle", __name__, url_prefix="/aisle")
 
-@aisle_bp.route("/")
+@aisle_bp.route("/") # GET /aisle
 def get_all_aisle_songs():
     stmt =db.select(AisleSong)
     aisle_songs = db.session.scalars(stmt)
@@ -24,7 +24,7 @@ def get_one_aisle_song(aisle_song_id):
     else:
         return {"error": f"Aisle song with id {aisle_song_id} not found"}, 404
     
-@aisle_bp.route("/", methods=["POST"])
+@aisle_bp.route("/", methods=["POST"]) # POST /aisle
 @jwt_required()
 def create_aisle_song():
     body_data = aisle_song_schema.load(request.get_json())
@@ -40,7 +40,7 @@ def create_aisle_song():
     db.session.commit()
     return aisle_song_schema.dump(aisle_song)
 
-@aisle_bp.route("/<int:aisle_song_id>", methods=["DELETE"])
+@aisle_bp.route("/<int:aisle_song_id>", methods=["DELETE"]) # DELETE /aisle/int:aisle_song_id
 @jwt_required()
 def delete_aisle_song(aisle_song_id):
     is_admin = is_user_admin()
@@ -55,7 +55,7 @@ def delete_aisle_song(aisle_song_id):
     else:
         return {"message": f"Aisle Song with {aisle_song_id} was not found"}, 404
     
-@aisle_bp.route("/<int:aisle_song_id>", methods=["PUT", "PATCH"])
+@aisle_bp.route("/<int:aisle_song_id>", methods=["PUT", "PATCH"]) # PATCH /aisle/int:aisle_song_id
 @jwt_required()
 def update_aisle_song(aisle_song_id):
     body_data = aisle_song_schema.load(request.get_json(), partial=True)
@@ -75,7 +75,7 @@ def update_aisle_song(aisle_song_id):
     else:
         return {"error": f"Aisle Song with id {aisle_song_id} not found"}, 404
     
-def is_user_admin():
+def is_user_admin(): # is admin function
     user_id = get_jwt_identity()
     stmt = db.select(User).filter_by(id=user_id)
     user = db.session.scalar(stmt)

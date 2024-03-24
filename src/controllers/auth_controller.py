@@ -11,7 +11,7 @@ from schemas.user_schema import user_schema, users_schema
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 
-@auth_bp.route("/register", methods=["POST"])
+@auth_bp.route("/register", methods=["POST"]) # /auth/register
 def auth_register():
     try:
         # the data that we get in the body of the request
